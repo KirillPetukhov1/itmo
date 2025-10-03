@@ -1,0 +1,5 @@
+/.env
+/.venv
+/py_log.log
+/__pycache__
+/resources/access_token.txt
