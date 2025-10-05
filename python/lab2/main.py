@@ -14,7 +14,7 @@ def main():
     __вывод результатов на экран__
     :return:
     """
-
+    
     target = int(input('Введите target: '))
     start_range = int(input('Введите начало диапазона: '))
     end_range = int(input('Введите конец диапазона: '))
@@ -28,12 +28,31 @@ def main():
     # print(f'{res}')
 
 
-def guess_number(target: int, lst: list[int], type='seq') -> tuple[int, int | None] | None:
+def guess_number(target: int, lst: list[int], type='seq') -> tuple[int, int | None]:
+    """Найти количество итераций, необходимое для поиска числа в 
+    диапазоне с использованием выбранного алгоритма.
+    
+    Args:
+        target (int): Искомое число.
+        lst (list[int]): Массив (можно любой итерируемый объект) 
+            не уменьшающихся целых чисел.
+        type (string): Тип алгоритма поиска.
+            ``bin`` - бинарный поиск, ``seq`` - последовательный.
+    
+    Returns:
+        (int, int | None): Пара целых чисел: искомое число и 
+            количество итераций, потраченных на поиск. В случае, 
+            если искомое число не было найдено, второе число в паре 
+            является None
+            
+    Raises:
+    """
+    
     if not hasattr(lst, '__iter__'):
         return
-    
+
     iteration_count = None
-    
+
     if type == 'seq':
         # ищем число последовательно
         ...
