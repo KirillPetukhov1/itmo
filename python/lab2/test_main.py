@@ -46,7 +46,7 @@ class TestGuessNumber(unittest.TestCase):
     def test_type_error_non_iterable_none(self):
         with self.assertRaises(TypeError):
             guess_number(5, None, 'seq')
-            
+
     def test_type_error_incorrect_compaction(self):
         with self.assertRaises(TypeError):
             guess_number(5, 'bin', 'bin')
