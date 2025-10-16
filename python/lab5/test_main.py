@@ -1,10 +1,10 @@
 import unittest
-from main import gen_bin_tree
+from main import gen_bin_tree, transform_to_dict_form
 
 
 class TestGenBinTree(unittest.TestCase):
     def test_gen_my_variant(self):
-        bin_tree = gen_bin_tree()
+        bin_tree = transform_to_dict_form(gen_bin_tree())
         self.assertEqual(bin_tree, {'13': [{'14': [{'15': [{'16': []},
                                                            {'14': []}]},
                                                    {'13': [{'14': []},
@@ -15,14 +15,14 @@ class TestGenBinTree(unittest.TestCase):
                                                            {'10': []}]}]}]})
 
     def test_gen_my_variant_height_2(self):
-        bin_tree = gen_bin_tree(2)
+        bin_tree = transform_to_dict_form(gen_bin_tree(2))
         self.assertEqual(bin_tree, {'13': [{'14': [{'15': []},
                                                    {'13': []}]},
                                            {'12': [{'13': []},
                                                    {'11': []}]}]})
 
     def test_gen_my_variant_height_4(self):
-        bin_tree = gen_bin_tree(4)
+        bin_tree = transform_to_dict_form(gen_bin_tree(4))
         self.assertEqual(bin_tree, {'13': [{'14': [{'15': [{'16': [{'17': []},
                                                                    {'15': []}]},
                                                            {'14': [{'15': []},
@@ -41,7 +41,7 @@ class TestGenBinTree(unittest.TestCase):
                                                                    {'9': []}]}]}]}]})
 
     def test_gen_with_other_func(self):
-        bin_tree = gen_bin_tree(3, 5, lambda x: x + 1, lambda x: x ** 2)
+        bin_tree = transform_to_dict_form(gen_bin_tree(3, 5, lambda x: x + 1, lambda x: x ** 2))
         self.assertEqual(bin_tree, {'5': [{'6': [{'7': [{'8': []},
                                                         {'49': []}]},
                                                  {'36': [{'37': []},
