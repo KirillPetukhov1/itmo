@@ -20,7 +20,7 @@ def fact_iterative_cached(n: int) -> int:
     return res
 
 
-def benchmark(func, n, number=1, repeat=1):
+def benchmark(func, n, number=1, repeat=5):
     """Возвращает среднее время выполнения func(n)"""
     # т.к. проводим чистый бенчмарк, сбрасываем кеш, иначе имеем
     # константное время, за счет использования уже

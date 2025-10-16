@@ -4,8 +4,7 @@ from collections.abc import Callable
 def main():
     """Вывести на экран бинарное дерево в виде словаря."""
 
-    bin_tree = gen_bin_tree(3, 5, lambda x: x + 1, lambda x: x ** 2)
-    print(bin_tree)
+    bin_tree = gen_bin_tree(3)
     print(form_readable_bin_tree(bin_tree))
 
 

@@ -4,10 +4,8 @@ from collections.abc import Callable
 def main():
     """Вывести на экран бинарное дерево в виде словаря."""
 
-    bin_tree = gen_bin_tree(3, 5, lambda x: x + 1, lambda x: x ** 2)
+    bin_tree = gen_bin_tree()
     print(form_readable_bin_tree(transform_to_dict_form(bin_tree)))
-    # print(bin_tree)
-    # print(form_readable_bin_tree(bin_tree))
 
 
 def gen_bin_tree(
@@ -54,7 +52,6 @@ def transform_to_dict_form(bin_tree: list[list[int]]) -> dict[str, list]:
     Returns:
         (dict[str, list]): Бинарное дерево в виде словаря.
     """
-    # new_bin_tree = {}
     bin_tree_last_levels = []
 
     for i in range(len(bin_tree)-1, -1, -1):
@@ -72,7 +69,6 @@ def transform_to_dict_form(bin_tree: list[list[int]]) -> dict[str, list]:
                     ]}
                 )
         bin_tree_last_levels = bin_tree_new_last_levels
-        # print(bin_tree_last_levels)
         
     return bin_tree_last_levels[0]
 
