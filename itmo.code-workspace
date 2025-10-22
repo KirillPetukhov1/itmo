@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"java.project.referencedLibraries": [
+			"lib/**/*.jar",
+			"C:\\Users\\k4484\\itmo\\itmo\\java\\lab2\\Pokemon.jar"
+		]
+	}
+}

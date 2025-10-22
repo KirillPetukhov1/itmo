@@ -1,16 +1,13 @@
-
+import ru.ifmo.se.pokemon.Battle;
+import ru.ifmo.se.pokemon.Pokemon;
 
 public class MainL2 {
     public static void main(String[] args) {
-        int x = 5;
-        {
-            System.out.println(x);
-        }
-        System.out.println(tt.b);
+        Battle b = new Battle();
+        Pokemon p1 = new Pokemon("Чужой", 1);
+        Pokemon p2 = new Pokemon("Хищник", 1);
+        b.addAlly(p1);
+        b.addFoe(p2);
+        b.go();
     }
-}
-
-
-class tt {
-    public static int b = 6;
 }
