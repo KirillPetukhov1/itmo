@@ -6,8 +6,8 @@ public final class AquaRingMove extends StatusMove {
     protected double maxHP;
 
     public AquaRingMove(double maxHP) {
-        this.maxHP = maxHP;
         super(Type.WATER, 0, 100);
+        this.maxHP = maxHP;
     }
 
     @Override
