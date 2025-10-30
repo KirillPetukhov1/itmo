@@ -1,0 +1,17 @@
+ssh -p 2222 s501755@helios.se.ifmo.ru 
+scp -P 2222 filename s501755@helios.se.ifmo.ru:~ 
+kTRk<8864
+
+работа с гелиосом
+- подключение к гелиосу: 
+ssh -p 2222 sXXXXXX@helios.cs.ifmo.ru 
+
+- закинуть файл на гелиос: 
+scp -P 2222 filename sXXXXXX@helios.cs.ifmo.ru:~ 
+(для винды используем WinSCP) 
+
+где XXXXXX -- табельный номер ису
+
+если подключаетесь к гелиосу через itmo corp сеть, то используйте адрес helios.se.ifmo.ru
+
+вот тут пароль для гелиоса (и se.ifmo.ru) https://se.ifmo.ru/passwd/

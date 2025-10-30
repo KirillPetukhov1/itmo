@@ -1,0 +1,8 @@
+javac -d ./out/ @sources.txt -cp Pokemon.jar
+
+cd out
+jar -c -f lab2.jar -e Main *.class
+jar -c -f lab2.jar -m MANIFEST.MF *.class statusmoves/*.class specialmoves/*.class mypokemons/*.class
+
+
+scp -P 2222 . s501755@helios.se.ifmo.ru:~/prog_java/lab2
