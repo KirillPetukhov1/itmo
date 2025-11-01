@@ -1,0 +1,11 @@
+clean - 0.189, 0.164
+
+del shortest - 0.210, 0.184
+
+del shortest and longest - 0.210, 0.184
+
+new clean - 0.189, 0.166
+
+del shortest and longest - 0.214, 0.187
+
+del shortest longest and 6029 - 0.219, 0.192
