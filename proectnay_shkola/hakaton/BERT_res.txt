@@ -1,0 +1,15 @@
+raw_del2.csv
+
+Test loss: 2.6283
+Macro F1-score: 0.0204
+F1-score variance: 0.0053
+
+Test loss: 2.3207
+Macro F1-score: 0.0649
+F1-score variance: 0.0229
+
+Test loss: 2.1250
+Macro F1-score: 0.1078
+F1-score variance: 0.0453
+
+
