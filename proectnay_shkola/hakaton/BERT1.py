@@ -275,5 +275,5 @@ if __name__ == "__main__":
     # df = pd.DataFrame(sample_data)
     
     # Запуск обучения
-    df = pd.read_csv(r'C:\Users\k4484\itmo\itmo-1\proectnay_shkola\hakaton\raw_del2.csv')
+    df = pd.read_json(r'C:\Users\k4484\itmo\itmo-1\proectnay_shkola\hakaton\win_dataset_copy.json')
     model, tokenizer, label_encoder, macro_f1, f1_variance = train_bert_classifier(df)
