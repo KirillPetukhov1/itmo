@@ -17,5 +17,11 @@ public final class Alomomola extends Pokemon {
                 new CalmMindMove(),
                 new PlayNiceMove(),
                 new AquaRingMove(maxHP));
+
+        Effect EffectObject = new Effect()
+                .stat(Stat.HP, maxHP)
+                .turns(2147483647)
+                .chance(0.13);
+        this.addEffect(EffectObject)
     }
 }
