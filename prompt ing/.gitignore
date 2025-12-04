@@ -3,3 +3,5 @@
 /py_log.log
 /__pycache__
 /resources/access_token.txt
+arxiv_embeddings202505211515.csv
+/lab3/chroma_db
