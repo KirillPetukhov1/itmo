@@ -1,0 +1,9 @@
+INFO: Вызов функции с аргументами: 1123
+INFO: Вызов функции с аргументами: 1123
+INFO: Calling a function with arguments: 1123
+INFO: Calling a function with arguments: ['USD', 'EUR', 'GBP', 'NNZ']url: https://www.cbr-xml-daily.ru1/daily_json.js
+ERROR: The API is unavailable: HTTPSConnectionPool(host='www.cbr-xml-daily.ru1', port=443): Max retries exceeded with url: /daily_json.js (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x00000256ACC259A0>: Failed to resolve 'www.cbr-xml-daily.ru1' ([Errno 11001] getaddrinfo failed)"))
+INFO: Calling a function with arguments: ['USD', 'EUR', 'GBP', 'NNZ']url: https://www.cbr-xml-daily.ru/daily_json.js
+INFO: The function is executed with the result: USD: 76.9708 EUR: 89.9011 GBP: 102.6098 NNZ: Код валюты 'NNZ' не найден.
+INFO: Calling a function with arguments: ['USD', 'EUR', 'GBP', 'NNZ']url: https://www.cbr-xml-daily.ru/daily_json.js
+INFO: The function is executed with the result: USD: 76.9708 EUR: 89.9011 GBP: 102.6098 NNZ: Код валюты 'NNZ' не найден.
