@@ -1,0 +1,12 @@
+C:\Users\k4484\itmo\itmo\java\lab3\src\Main.java
+C:\Users\k4484\itmo\itmo\java\lab3\src\entities\AnotherVisitor.java
+C:\Users\k4484\itmo\itmo\java\lab3\src\entities\Bayer.java
+C:\Users\k4484\itmo\itmo\java\lab3\src\entities\Captive.java
+C:\Users\k4484\itmo\itmo\java\lab3\src\entities\Clothes.java
+C:\Users\k4484\itmo\itmo\java\lab3\src\entities\Hat.java
+C:\Users\k4484\itmo\itmo\java\lab3\src\entities\Julio.java
+C:\Users\k4484\itmo\itmo\java\lab3\src\entities\Neznaika.java
+C:\Users\k4484\itmo\itmo\java\lab3\src\entities\Oslik.java
+C:\Users\k4484\itmo\itmo\java\lab3\src\entities\Person.java
+C:\Users\k4484\itmo\itmo\java\lab3\src\entities\Pistol.java
+C:\Users\k4484\itmo\itmo\java\lab3\src\system\WorldModel.java

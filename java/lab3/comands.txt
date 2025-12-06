@@ -1,0 +1,10 @@
+find . -name "*.java" > sources.txt
+dir /s /B *.java > sources.txt
+
+javac -d ./out/ @sources.txt
+
+cd out
+jar -c -f lab3.jar -e Main *.class entities/*.class system/*.class
+
+
+scp -P 2222 -r . s501755@helios.se.ifmo.ru:~/prog_java/lab3

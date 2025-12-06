@@ -1,5 +1,7 @@
 package entities;
+
 import java.util.ArrayList;
+import system.exceptions.*;
 
 public class AnotherVisitor extends Person implements Bayer {
     protected int moneyAmount;
@@ -9,8 +11,8 @@ public class AnotherVisitor extends Person implements Bayer {
     protected Clothes outerwear;
     protected Hat hat;
     
-    public AnotherVisitor(float lack, int strength, int moneyAmount) {
-        super("Еще один посетитель", lack, strength);
+    public AnotherVisitor(float lack, int strength, int moneyAmount, Feeling feeling) {
+        super("Еще один посетитель", lack, strength, feeling);
         this.moneyAmount = moneyAmount;
         this.isInShop = false;
         this.trousers = Clothes.TIGHT_TROUSERS;
@@ -42,7 +44,7 @@ public class AnotherVisitor extends Person implements Bayer {
 
     public void enterShop() {
         if (!isInShop) {
-            System.out.println(this.name + " заходит в магазин.");
+            System.out.println(this.feeling + " " + this.name + " заходит в магазин.");
             this.isInShop = true;
         }
     }
@@ -51,9 +53,9 @@ public class AnotherVisitor extends Person implements Bayer {
         if (isInShop) {
             this.isInShop = false;
             if (trousers.getIsTight()) {
-                System.out.println(this.name + " удалился из магазина, широко расставляя свои согнутые в коленях ноги.");
+                System.out.println(this.feeling + " " + this.name + " удалился из магазина, широко расставляя свои согнутые в коленях ноги.");
             } else {
-                System.out.println(this.name + " удалился из магазина.");
+                System.out.println(this.feeling + " " + this.name + " удалился из магазина.");
             }
         }
     }
@@ -64,5 +66,35 @@ public class AnotherVisitor extends Person implements Bayer {
 
     public Pistol getPistol() {
         return this.pistol;
+    }
+
+    public void takeShot(Person person) {
+        class Shot {
+            private Person target;
+            private Pistol pistol;
+            
+            public Shot(Person target, Pistol pistol) {
+                this.target = target;
+                this.pistol = pistol;
+            }
+
+            public boolean canTakeShot() throws PersonIsUnavailableException {
+                if (!this.target.isInShop) throw new PersonIsUnavailableException(person);
+                return pistol != null && pistol.getIsEquipped() && pistol.getIsCharged();
+            }
+        }
+
+        try {
+            if ((new Shot(person, this.pistol)).canTakeShot()) {
+                System.out.println(this.feeling + " " + this + " стреляет в сторону " + person + ".");
+                this.pistol.discharge();
+                person.setFeeling(Feeling.SCARED);
+                person.leaveShop();
+            } else {
+                System.out.println(this.feeling + " " + this + " хотел бы выстрелить в сторону " + person + ", но у него нет оружия.");
+            }
+        } catch (PersonIsUnavailableException e) {
+            System.out.println(this.feeling + " " + this + " хочет в кого-нибудь выстрелить.");
+        }
     }
 }
