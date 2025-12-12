@@ -3,18 +3,18 @@ package entities;
 public class Oslik extends Person implements Captive {
     protected boolean isTied;
 
-    public Oslik(float lack, int strength, boolean isInShop, boolean isTied) {
-        super("Ослик", lack, strength);
+    public Oslik(float lack, int strength, boolean isInShop, boolean isTied, Feeling feeling) {
+        super("Ослик", lack, strength, feeling);
         this.isInShop = isInShop;
         this.isTied = isTied;
     }
 
     public void enterShop() {
-        if (!isInShop) {
+        if (!isInShop || (!this.feeling.getIsActive() && !isTied)) {
             if (isTied) {
-                System.out.println("Связанный " + this.name + " заносится в магазин.");
+                System.out.println("Связанный " + this.feeling + " " + this.name + " заносится в магазин.");
             } else {
-                System.out.println(this.name + " заходит в магазин.");
+                System.out.println(this.feeling + " " + this.name + " заходит в магазин.");
             }
             this.isInShop = true;
         }
@@ -24,9 +24,9 @@ public class Oslik extends Person implements Captive {
         if (isInShop) {
             this.isInShop = false;
             if (isTied) {
-                System.out.println("Связанный " + this.name + " выносится из магазина.");
+                System.out.println("Связанный " + this.feeling + " " + this.name + " выносится из магазина.");
             } else {
-                System.out.println(this.name + " выходит из магазина.");
+                System.out.println(this.feeling + " " + this.name + " выходит из магазина.");
             }
         }
     }

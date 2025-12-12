@@ -17,6 +17,10 @@ public class Pistol {
         this.isCharged = true;
     }
 
+    public void discharge() {
+        this.isCharged = false;
+    }
+
     public boolean getIsEquipped() {
         return this.isEquipped;
     }

@@ -6,3 +6,6 @@ public class Main {
     }
     
 }
+
+
+// Enum настроения

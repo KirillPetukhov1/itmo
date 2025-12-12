@@ -6,19 +6,19 @@ public class Neznaika extends Person implements Captive {
     protected boolean isTied;
     protected Hat hat;
 
-    public Neznaika(float lack, int strength, boolean isInShop, boolean isTied) {
-        super("Незнайка", lack, strength);
+    public Neznaika(float lack, int strength, boolean isInShop, boolean isTied, Feeling feeling) {
+        super("Незнайка", lack, strength, feeling);
         this.isInShop = isInShop;
         this.isTied = isTied;
         this.hat = new Hat("шляпа", false);
     }
 
     public void enterShop() {
-        if (!isInShop) {
+        if (!isInShop && this.feeling.getIsActive()) {
             if (isTied) {
-                System.out.println("Связанный " + this.name + " заносится в магазин.");
+                System.out.println("Связанный " + this.feeling + " " + this.name + " заносится в магазин.");
             } else {
-                System.out.println(this.name + " заходит в магазин.");
+                System.out.println(this.feeling + " " + this.name + " заходит в магазин.");
             }
             this.isInShop = true;
         }
@@ -28,9 +28,9 @@ public class Neznaika extends Person implements Captive {
         if (isInShop) {
             this.isInShop = false;
             if (isTied) {
-                System.out.println("Связанный " + this.name + " выносится из магазина.");
+                System.out.println("Связанный " + this.feeling + " " + this.name + " выносится из магазина.");
             } else {
-                System.out.println(this.name + " выходит из магазина.");
+                System.out.println(this.feeling + " " + this.name + " выходит из магазина.");
             }
         }
     }

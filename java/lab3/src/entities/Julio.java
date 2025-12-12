@@ -2,8 +2,8 @@ package entities;
 
 public class Julio extends Person {
 
-    public Julio(float lack, int strength) {
-        super("Господин Жулио", lack, strength);
+    public Julio(float lack, int strength, Feeling feeling) {
+        super("Господин Жулио", lack, strength, feeling);
         this.isInShop = true;
     }
 
