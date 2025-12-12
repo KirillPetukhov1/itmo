@@ -9,7 +9,9 @@ def serialize_list(lst: list) -> str:
 
 
 def serialize_dict(dct: dict) -> str:
-    return ' '.join([str(i) + ': ' + str(dct[i]) for i in dct])
+    if (type(dct) != dict):
+        return str(dct)
+    return ' '.join([str(i) + '=' + str(dct[i]) for i in dct])
 
 
 def logger(func=None, *, handle=sys.stdout):
@@ -22,6 +24,7 @@ def logger(func=None, *, handle=sys.stdout):
             handle.info(
                 'Calling a function with arguments: '
                 + serialize_list(args)
+                + ' '
                 + serialize_dict(kwargs)
             )
             try:
@@ -49,7 +52,9 @@ def logger(func=None, *, handle=sys.stdout):
             handle.write(
                 'Calling a function with arguments: '
                 + serialize_list(args)
+                + ' '
                 + serialize_dict(kwargs)
+                + '\n'
             )
             try:
                 result = func(*args, **kwargs)
@@ -71,6 +76,7 @@ def logger(func=None, *, handle=sys.stdout):
             handle.write(
                 'The function is executed with the result: '
                 + serialize_dict(result)
+                + '\n'
             )
 
         return result
@@ -118,4 +124,9 @@ currency_list = ['USD', 'EUR', 'GBP', 'NNZ']
 currency_data = get_currencies(
     currency_list, url='https://www.cbr-xml-daily.ru/daily_json.js')
 if currency_data:
-    print(currency_data)
+    # print(currency_data)
+    @logger
+    def test_func(x, y=10):
+        return x * y
+    
+    print(test_func(5, y=2))

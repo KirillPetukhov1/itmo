@@ -7,3 +7,85 @@ INFO: Calling a function with arguments: ['USD', 'EUR', 'GBP', 'NNZ']url: https:
 INFO: The function is executed with the result: USD: 76.9708 EUR: 89.9011 GBP: 102.6098 NNZ: Код валюты 'NNZ' не найден.
 INFO: Calling a function with arguments: ['USD', 'EUR', 'GBP', 'NNZ']url: https://www.cbr-xml-daily.ru/daily_json.js
 INFO: The function is executed with the result: USD: 76.9708 EUR: 89.9011 GBP: 102.6098 NNZ: Код валюты 'NNZ' не найден.
+INFO: Calling a function with arguments: ['USD', 'EUR', 'GBP', 'NNZ']url: https://www.cbr-xml-daily.ru/daily_json.js
+INFO: The function is executed with the result: USD: 76.8084 EUR: 89.4267 GBP: 102.2473 NNZ: Код валюты 'NNZ' не найден.
+INFO: Calling a function with arguments: ['USD', 'EUR', 'GBP', 'NNZ']url: https://www.cbr-xml-daily.ru/daily_json.js
+INFO: The function is executed with the result: USD: 76.8084 EUR: 89.4267 GBP: 102.2473 NNZ: Код валюты 'NNZ' не найден.
+INFO: Calling a function with arguments: ['USD']
+ERROR: The API is unavailable: Connection failed
+INFO: Calling a function with arguments: ['USD', 'XYZ', 'EUR']
+INFO: The function is executed with the result: USD: 75.5 XYZ: Код валюты 'XYZ' не найден. EUR: 85.3
+INFO: Calling a function with arguments: ['USD', 'EUR', 'GBP']
+INFO: The function is executed with the result: USD: 75.5 EUR: 85.3 GBP: 95.7
+INFO: Calling a function with arguments: ['USD']url: invalid_url
+ERROR: Error when requesting the API: Invalid URL 'invalid_url': No scheme supplied. Perhaps you meant https://invalid_url?
+INFO: Calling a function with arguments: ['USD']
+INFO: The function is executed with the result: 
+INFO: Calling a function with arguments: 
+ERROR: The API is unavailable: API unavailable
+INFO: Calling a function with arguments: 4
+INFO: Calling a function with arguments: ['USD', 'EUR', 'GBP', 'NNZ']url: https://www.cbr-xml-daily.ru/daily_json.js
+INFO: The function is executed with the result: USD: 76.8084 EUR: 89.4267 GBP: 102.2473 NNZ: Код валюты 'NNZ' не найден.
+INFO: Calling a function with arguments: ['USD']
+ERROR: The API is unavailable: Connection failed
+INFO: Calling a function with arguments: ['USD', 'XYZ', 'EUR']
+INFO: The function is executed with the result: USD: 75.5 XYZ: Код валюты 'XYZ' не найден. EUR: 85.3
+INFO: Calling a function with arguments: ['USD', 'EUR', 'GBP']
+INFO: The function is executed with the result: USD: 75.5 EUR: 85.3 GBP: 95.7
+INFO: Calling a function with arguments: ['USD']url: invalid_url
+ERROR: Error when requesting the API: Invalid URL 'invalid_url': No scheme supplied. Perhaps you meant https://invalid_url?
+INFO: Calling a function with arguments: ['USD']
+INFO: The function is executed with the result: 
+INFO: Calling a function with arguments: ['USD']
+INFO: The function is executed with the result: USD: 75.5
+INFO: Calling a function with arguments: 
+ERROR: The API is unavailable: API unavailable
+INFO: Calling a function with arguments: 4
+INFO: Calling a function with arguments: ['USD', 'EUR', 'GBP', 'NNZ']url: https://www.cbr-xml-daily.ru/daily_json.js
+INFO: The function is executed with the result: USD: 76.8084 EUR: 89.4267 GBP: 102.2473 NNZ: Код валюты 'NNZ' не найден.
+INFO: Calling a function with arguments: ['USD', 'EUR', 'GBP', 'NNZ']url: https://www.cbr-xml-daily.ru/daily_json.js
+INFO: The function is executed with the result: USD: 76.8084 EUR: 89.4267 GBP: 102.2473 NNZ: Код валюты 'NNZ' не найден.
+INFO: Calling a function with arguments: ['USD', 'EUR', 'GBP', 'NNZ']url: https://www.cbr-xml-daily.ru/daily_json.js
+INFO: The function is executed with the result: USD: 76.8084 EUR: 89.4267 GBP: 102.2473 NNZ: Код валюты 'NNZ' не найден.
+INFO: Calling a function with arguments: ['USD', 'EUR', 'GBP', 'NNZ']url: https://www.cbr-xml-daily.ru/daily_json.js
+INFO: The function is executed with the result: USD: 76.8084 EUR: 89.4267 GBP: 102.2473 NNZ: Код валюты 'NNZ' не найден.
+INFO: Calling a function with arguments: ['USD', 'EUR', 'GBP', 'NNZ'] url: https://www.cbr-xml-daily.ru/daily_json.js
+INFO: The function is executed with the result: USD: 76.8084 EUR: 89.4267 GBP: 102.2473 NNZ: Код валюты 'NNZ' не найден.
+INFO: Calling a function with arguments: ['USD', 'EUR', 'GBP', 'NNZ'] url=https://www.cbr-xml-daily.ru/daily_json.js
+INFO: The function is executed with the result: USD=76.8084 EUR=89.4267 GBP=102.2473 NNZ=Код валюты 'NNZ' не найден.
+INFO: Calling a function with arguments: ['USD', 'EUR', 'GBP', 'NNZ'] url=https://www.cbr-xml-daily.ru/daily_json.js
+INFO: The function is executed with the result: USD=76.8084 EUR=89.4267 GBP=102.2473 NNZ=Код валюты 'NNZ' не найден.
+INFO: Calling a function with arguments: ['USD'] 
+ERROR: The API is unavailable: Connection failed
+INFO: Calling a function with arguments: ['USD', 'XYZ', 'EUR'] 
+INFO: The function is executed with the result: USD=75.5 XYZ=Код валюты 'XYZ' не найден. EUR=85.3
+INFO: Calling a function with arguments: ['USD', 'EUR', 'GBP'] 
+INFO: The function is executed with the result: USD=75.5 EUR=85.3 GBP=95.7
+INFO: Calling a function with arguments: ['USD'] url=invalid_url
+ERROR: Error when requesting the API: Invalid URL 'invalid_url': No scheme supplied. Perhaps you meant https://invalid_url?
+INFO: Calling a function with arguments: ['USD'] 
+INFO: The function is executed with the result: 
+INFO: Calling a function with arguments: ['USD'] 
+INFO: The function is executed with the result: USD=75.5
+INFO: Calling a function with arguments:  
+ERROR: The API is unavailable: API unavailable
+INFO: Calling a function with arguments: 4 
+INFO: The function is executed with the result: 12
+INFO: Calling a function with arguments: ['USD', 'EUR', 'GBP', 'NNZ'] url=https://www.cbr-xml-daily.ru/daily_json.js
+INFO: The function is executed with the result: USD=76.8084 EUR=89.4267 GBP=102.2473 NNZ=Код валюты 'NNZ' не найден.
+INFO: Calling a function with arguments: ['USD'] 
+ERROR: The API is unavailable: Connection failed
+INFO: Calling a function with arguments: ['USD', 'XYZ', 'EUR'] 
+INFO: The function is executed with the result: USD=75.5 XYZ=Код валюты 'XYZ' не найден. EUR=85.3
+INFO: Calling a function with arguments: ['USD', 'EUR', 'GBP'] 
+INFO: The function is executed with the result: USD=75.5 EUR=85.3 GBP=95.7
+INFO: Calling a function with arguments: ['USD'] url=invalid_url
+ERROR: Error when requesting the API: Invalid URL 'invalid_url': No scheme supplied. Perhaps you meant https://invalid_url?
+INFO: Calling a function with arguments: ['USD'] 
+INFO: The function is executed with the result: 
+INFO: Calling a function with arguments: ['USD'] 
+INFO: The function is executed with the result: USD=75.5
+INFO: Calling a function with arguments:  
+ERROR: The API is unavailable: API unavailable
+INFO: Calling a function with arguments: 4 
+INFO: The function is executed with the result: 12
