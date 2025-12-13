@@ -119,14 +119,9 @@ def get_currencies(currency_codes: list, url="https://www.cbr-xml-daily.ru/daily
 
 
 # Пример использования функции:
-currency_list = ['USD', 'EUR', 'GBP', 'NNZ']
+currency_list = ['USD', 'EUR', 'RUB', 'GBP', 'JPY', 'CHF', 'CNY', 'AUD', 'CAD', 'INR']
 
 currency_data = get_currencies(
     currency_list, url='https://www.cbr-xml-daily.ru/daily_json.js')
 if currency_data:
-    # print(currency_data)
-    @logger
-    def test_func(x, y=10):
-        return x * y
-    
-    print(test_func(5, y=2))
+    print(currency_data)

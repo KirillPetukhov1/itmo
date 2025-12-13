@@ -89,3 +89,7 @@ INFO: Calling a function with arguments:
 ERROR: The API is unavailable: API unavailable
 INFO: Calling a function with arguments: 4 
 INFO: The function is executed with the result: 12
+INFO: Calling a function with arguments: ['USD', 'EUR', 'GBP', 'NNZ'] url=https://www.cbr-xml-daily.ru/daily_json.js
+INFO: The function is executed with the result: USD=79.7296 EUR=93.5626 GBP=107.1167 NNZ=Код валюты 'NNZ' не найден.
+INFO: Calling a function with arguments: ['USD', 'EUR', 'RUB', 'GBP', 'JPY', 'CHF', 'CNY', 'AUD', 'CAD', 'INR'] url=https://www.cbr-xml-daily.ru/daily_json.js
+INFO: The function is executed with the result: USD=79.7296 EUR=93.5626 RUB=Код валюты 'RUB' не найден. GBP=107.1167 JPY=51.2138 CHF=100.314 CNY=11.2726 AUD=53.1079 CAD=57.8841 INR=88.2079

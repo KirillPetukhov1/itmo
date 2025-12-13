@@ -1,0 +1,99 @@
+<main class="container py-4">    
+    {% if user %}
+        <!-- Информация о пользователе -->
+        <div class="card mb-4">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h1 class="h3 mb-0">{{ user.name }}</h1>
+                        <p class="text-muted mb-0">{{ user.email }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Статистика -->
+        {% set active_subs = user_subs|selectattr('is_active')|list %}
+        
+        <div class="row mb-5">
+            <div class="col-md-4">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h3 class="card-title">{{ user_subs|length }}</h3>
+                        <p class="card-text text-muted">Всего подписок</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h3 class="card-title text-success">{{ active_subs|length }}</h3>
+                        <p class="card-text text-muted">Активных</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h3 class="card-title">{{ user_subs|length - active_subs|length }}</h3>
+                        <p class="card-text text-muted">Завершенных</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Подписки -->
+        <h2 class="h4 mb-3 text-center text-white">Подписки на валюты</h2>
+        
+        {% if user_subs|length > 0 %}
+            <div class="row">
+                {% for sub in user_subs %}
+                    <div class="col-md-6 col-lg-4 mb-3">
+                        <div class="card h-100 {% if sub[0].is_active %}border-success{% else %}border-secondary{% endif %}">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                    <h5 class="card-title mb-0">{{ sub[1].name }}</h5>
+                                    {% if sub[0].is_active %}
+                                        <span class="badge bg-success">Активна</span>
+                                    {% else %}
+                                        <span class="badge bg-secondary">Завершена</span>
+                                    {% endif %}
+                                </div>
+                                
+                                <p class="text-muted mb-2">
+                                    {{ sub[1].char_code }} | {{ sub[1].num_code }}
+                                </p>
+                                
+                                <p class="mb-2">
+                                    <strong>Курс:</strong> {{ sub[1].value }} RUB<br>
+                                    <small class="text-muted">За {{ sub[1].nominal }} ед.</small>
+                                </p>
+                                
+                                <div class="border-top pt-2 mt-2">
+                                    <small class="text-muted d-block">
+                                        <strong>Начало:</strong> {{ sub[0].start_timestamp|datetimeformat }}
+                                    </small>
+                                    <small class="text-muted d-block">
+                                        <strong>Окончание:</strong> {{ sub[0].end_timestamp|datetimeformat }}
+                                    </small>
+                                    <small class="text-muted">
+                                        <strong>Длительность:</strong> {{ sub[0].duration|durationformat }}
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="alert alert-info" role="alert">
+                У пользователя нет подписок на валюты
+            </div>
+        {% endif %}
+        
+    {% else %}
+        <div class="alert alert-danger" role="alert">
+            Пользователь не найден
+        </div>
+    {% endif %}
+</main>
