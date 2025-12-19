@@ -8,7 +8,7 @@ import timeit
 
 def integrate_async(f: Callable[[float], float], a: float, b: float, *, n_jobs=2, n_iter=1000):
     """
-    Интегрирует методом прямоугольников в многопоточном режиме.
+    Интегрирует методом прямоугольников в многопоточном режиме с использованием процессов.
     
     Args:
         f (Callable[[float], float]): Математическая функция для интегрирования.
@@ -20,8 +20,8 @@ def integrate_async(f: Callable[[float], float], a: float, b: float, *, n_jobs=2
     Returns:
         float: значение вычисленного интеграла.
     """
-
-    executor = ftres.ThreadPoolExecutor(max_workers=n_jobs) # создаваемый пул тредов будет размера n_jobs
+    
+    executor = ftres.ProcessPoolExecutor(max_workers=n_jobs) # создаваемый пул тредов будет размера n_jobs
 
     spawn = partial(executor.submit, integrate, f, n_iter = n_iter // n_jobs)   # partial позволяет "закрепить"
                                                                                 # несколько аргументов
