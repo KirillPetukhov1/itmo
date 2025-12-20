@@ -3126,15 +3126,7 @@ static int __Pyx_InitConstants(__pyx_mstatetype *__pyx_mstate) {
   CYTHON_UNUSED_VAR(__pyx_mstate);
   {
     const struct { const unsigned int length: 7; } index[] = {{1},{16},{20},{1},{18},{1},{18},{12},{1},{8},{9},{13},{5},{8},{10},{6},{8},{3},{12},{12},{10},{8},{6},{65}};
-    #if (CYTHON_COMPRESS_STRINGS) == 3 && __PYX_LIMITED_VERSION_HEX >= 0x030e0000 /* compression: zstd (220 bytes) */
-const char* const cstring = "(\265/\375`\017\000\225\006\000\002\216.)\200k:3\000NB2\344\262jq\\\320\243-\333\215\3546z\377+cK\265\303\rh4X\242\214;\335\314\275\216x\326\006\rZ\210\266\313s\361t\352VD\r\324\213\036\010[\243.*\206\016(!\332,\325Q\005U\242\022j\210\266\005-\014\000\212\220\345\003I\200\022\000\220\344Im\347o\311\37575w\342L\263l\226?\265\363\372\255h\375\\-\374\177\246f&V\377\017\337V\277\254\270\337\345;\367b\032n\370~\007\347\364O\034\267\022\273\305\372\360\235\341\243\234$\031\276\236\021\213\216\021\237\203\232\334\235\370\322\031S\336\356M2\255\362g\232\305x`\334\3570nZs\221\007\000\310\316\020}f]f\254\000\216F\300\242I\2039\010p\233";
-    PyObject *data = __Pyx_DecompressString(cstring, 220, 3);
-    if (unlikely(!data)) __PYX_ERR(0, 2, __pyx_L1_error)
-    const char* const bytes = __Pyx_PyBytes_AsString(data);
-    #if !CYTHON_ASSUME_SAFE_MACROS
-    if (likely(bytes)); else { Py_DECREF(data); __PYX_ERR(0, 2, __pyx_L1_error) }
-    #endif
-    #elif (CYTHON_COMPRESS_STRINGS) != 0 /* compression: zlib (223 bytes) */
+    #if (CYTHON_COMPRESS_STRINGS) != 0 /* compression: zlib (223 bytes) */
 const char* const cstring = "x\332MNAJ\003A\020\214\270\201@\004A\310U\310\007\002\021\257\"\210gI\002\236\213\331I\257\016\316\316\354\356\364\204\354\017\3468\307<\305g\344\270\317\360\tvH\020\373P\325\325]\325\364\263\356\371\323;\030\246\356q\321\364{`%\260\352_\215f\274\321\2367T)\025z\247\215_h\337\371\310\306Q(\265\025\202q\340Ni*\225\376\372\177\251\002\252\3504\304\300\364\321)\026k\300_\\<u\000j%y\251\332o\243%\340\034\026V\265\250\3067@\033\225=K \020_V\322m\345\255h\031`\n\202;e#\205\343hv\234=}\257\177\356G\343i\232\017\305MzIe\276\316\017y=\024\2234N\357y\236\227\303\3446\265\371*\337\235\346Y\345\335ash\207b\232\226\277\216\342j\372";
     PyObject *data = __Pyx_DecompressString(cstring, 223, 1);
     if (unlikely(!data)) __PYX_ERR(0, 2, __pyx_L1_error)
