@@ -1,3 +1,4 @@
+from custom_errors import NegativeDiscriminantError, NonExistentEquationError
 import logging
 import sys
 import functools
@@ -40,6 +41,12 @@ def logger(func=None, *, handle=sys.stdout):
                 raise
             except requests.exceptions.RequestException as e:
                 handle.error(f"Error when requesting the API: {e}")
+                raise
+            except NegativeDiscriminantError as e:
+                handle.warning(f"Warning discriminant is negative: {e}")
+                raise
+            except NonExistentEquationError as e:
+                handle.critical(f"Error the equation does not exist: {e}")
                 raise
             except Exception as e:
                 handle.error(f"Unexpected error: {e}")
@@ -87,7 +94,8 @@ def logger(func=None, *, handle=sys.stdout):
 logging.basicConfig(
     filename="python\\lab7\\lab7.log",
     level=logging.INFO,
-    format="%(levelname)s: %(message)s"
+    format="%(levelname)s: %(message)s",
+    encoding='utf-8'
 )
 
 
@@ -118,10 +126,12 @@ def get_currencies(currency_codes: list, url="https://www.cbr-xml-daily.ru/daily
     return currencies
 
 
-# Пример использования функции:
-currency_list = ['USD', 'EUR', 'RUB', 'GBP', 'JPY', 'CHF', 'CNY', 'AUD', 'CAD', 'INR']
+if __name__ == '__main__':
+    # Пример использования функции:
+    # currency_list = ['USD', 'EUR', 'RUB', 'GBP', 'JPY', 'CHF', 'CNY', 'AUD', 'CAD', 'INR']
+    currency_list = ['USD', 'XYZ', 'EUR']
 
-currency_data = get_currencies(
-    currency_list, url='https://www.cbr-xml-daily.ru/daily_json.js')
-if currency_data:
-    print(currency_data)
+    currency_data = get_currencies(
+        currency_list, url='https://www.cbr-xml-daily.ru/daily_json.js')
+    if currency_data:
+        print(currency_data)
