@@ -1,0 +1,50 @@
+<main class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="mb-0 text-center text-white">Список валют</h1>
+        <span class="badge bg-primary">{{ currencies|length }} валют</span>
+    </div>
+
+    {% if currencies %}
+        <div class="row">
+            {% for currency in currencies %}
+            <div class="col-md-6 col-xl-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="card-title mb-0">{{ currency.name }}</h5>
+                        <span class="badge bg-info">{{ currency.char_code }}</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <small class="text-muted d-block">Цифровой код</small>
+                                <strong>{{ currency.num_code }}</strong>
+                            </div>
+                            <div class="col-6">
+                                <small class="text-muted d-block">Номинал</small>
+                                <strong>{{ currency.nominal }}</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="border-top pt-3">
+                            <small class="text-muted d-block mb-1">Курс</small>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h4 class="mb-0">{{ "%.2f"|format(currency.value) }} RUB</h4>
+                                <small class="text-muted">
+                                    {{ "%.4f"|format(currency.value / currency.nominal) }} RUB за 1
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-transparent">
+                        <small class="text-muted">ID: {{ currency.id }}</small>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-info" role="alert">
+            Валюты не найдены
+        </div>
+    {% endif %}
+</main>

@@ -20,11 +20,6 @@ def integrate_async(f: Callable[[float], float], a: float, b: float, *, n_jobs=2
     Returns:
         float: значение вычисленного интеграла.
     """
-    """
-      - аннотировать аргументы
-      - реализовать аналогичную функцию для вычисления с процессами (ProcessPoolExecutor)
-      - оценить время работы программ с потоками и процессами и зафиксировать значения (2, 4, 6, 8(?))
-    """
 
     executor = ftres.ThreadPoolExecutor(max_workers=n_jobs) # создаваемый пул тредов будет размера n_jobs
 
@@ -49,8 +44,8 @@ def integrate_async(f: Callable[[float], float], a: float, b: float, *, n_jobs=2
 # print(integrate_async(math.sin, 0, math.pi))
 
 if __name__ == "__main__":
-    # print(integrate_async(math.sin, 0, math.pi / 2, n_jobs=8))
     for n_jobs in (2, 4, 6, 8):
-        times = timeit.repeat(lambda: integrate_async(math.sin, 0, math.pi / 2, n_jobs=n_jobs), number=1000, repeat=5)
+        print(f"====10000 итераций | {n_jobs} потоков====")
+        times = timeit.repeat(lambda: integrate_async(math.sin, 0, math.pi / 2, n_jobs=n_jobs, n_iter=10000), number=100, repeat=5)
         print(f'{n_jobs} потока: {sum(times)/5}')
     

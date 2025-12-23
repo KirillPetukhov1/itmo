@@ -1,0 +1,28 @@
+<main class="container py-4">
+    <h1 class="mb-4 text-center text-white">Список пользователей</h1>
+    
+    {% if users %}
+        <div class="row">
+            {% for user in users %}
+            <div class="col-md-6 col-lg-4 mb-3">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ user.name }}</h5>
+                        <p class="card-text">
+                            <strong>ID:</strong> {{ user.id }}<br>
+                            <strong>Email:</strong> {{ user.email }}
+                        </p>
+                        <a href="/user?id={{ user.id }}" class="btn btn-primary">
+                            Подробнее
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-info" role="alert">
+            Пользователи не найдены
+        </div>
+    {% endif %}
+</main>

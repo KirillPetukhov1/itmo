@@ -2,22 +2,22 @@
     <div class="author-card">
         <div class="author-avatar">
             <div class="avatar-placeholder">
-                {{ author_name[0] | upper }}
+                {{ author.name | upper }}
             </div>
         </div>
 
         <div class="author-details">
-            <h2 class="author-name">{{ author_name }}</h2>
+            <h2 class="author-name">{{ author.name }}</h2>
 
             <div class="detail-group">
                 <span class="label">Группа:</span>
-                <span class="value">{{ group }}</span>
+                <span class="value">{{ author.group }}</span>
             </div>
 
             <div class="detail-group">
                 <span class="label">GitHub:</span>
-                <a href="{{ github_url }}" class="github-link" target="_blank" rel="noopener noreferrer">
-                    {{ github_url }}
+                <a href="{{ author.github_url }}" class="github-link" target="_blank" rel="noopener noreferrer">
+                    {{ author.github_url }}
                 </a>
             </div>
 
