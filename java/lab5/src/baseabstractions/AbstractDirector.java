@@ -1,9 +1,9 @@
 package src.baseabstractions;
 
-public abstract class Director<T extends Builder<?>> {
+public abstract class AbstractDirector<T extends Builder<?>> {
     private T builder;
 
-    public Director(T builder) {
+    public AbstractDirector(T builder) {
         this.builder = builder;
     }
 

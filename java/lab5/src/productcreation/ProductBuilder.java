@@ -11,6 +11,10 @@ import src.baseobjects.UnitOfMeasure;
 public class ProductBuilder<T extends Product> implements Builder<T> {
     private T product;
 
+    public ProductBuilder(T product) {
+        this.product = product;
+    }
+
     public ProductBuilder<T> setId(long id) {
         product.setId(id);
         return this;

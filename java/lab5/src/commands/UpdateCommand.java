@@ -12,8 +12,8 @@ public class UpdateCommand<K, V extends Product> extends Command<K, V> {
 
     public void execute(String[] args) {
         if (args.length == 2) {
-            // getCollectionManager().help(); TODO
             long id = Long.parseLong(args[1]);
+            getCollectionManager().update(id);
         } else
             throw new IllegalArgumentException("Number of arguments is wrong.");
     }

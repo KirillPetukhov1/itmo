@@ -8,32 +8,24 @@ import src.basecollection.CollectionManager;
 import src.baseobjects.Product;
 import src.commands.*;
 
-public class CommandManager<T extends Product> {
+public class CommandManager<K, V extends Product> {
     private boolean isWorking = true;
-    private static HashMap<String, Command<? extends Product>> commands = new HashMap<>();
+    private static HashMap<String, Command<?, ? extends Product>> commands = new HashMap<>();
 
-    public CommandManager(CollectionManager<T> collectionManager) {
-        commands.put("help", new HelpCommand(collectionManager));
-        commands.put("info", new InfoCommand(collectionManager));
-        commands.put("show", new ShowCommand(collectionManager));
-        commands.put("add", new AddCommand(collectionManager));
-        commands.put("update", new UpdateIdCommand(collectionManager));
-        commands.put("remove_by_id", new RemoveByIdCommand(collectionManager));
-        commands.put("clear", new ClearCommand(collectionManager));
-        commands.put("save", new SaveCommand(collectionManager));
-        commands.put("execute_script", new ExecuteScriptCommand(collectionManager));
-        commands.put("exit", new ExitCommand(collectionManager));
-        commands.put("add_if_max", new AddIfMaxCommand(collectionManager));
-        commands.put("add_if_min", new AddIfMinCommand(collectionManager));
-        commands.put("remove_lower", new RemoveLowerCommand(collectionManager));
-        commands.put("sum_of_number_of_participants", new SumOfNumberOfParticipantsCommand(collectionManager));
-        commands.put("filter_less_than_number_of_participants",
-                new FilterLessThanNumberOfParticipantsCommand(collectionManager));
-        commands.put("print_descending", new PrintDescendingCommand(collectionManager));
+    public CommandManager(CollectionManager<K, V> collectionManager) {
+        commands.put("help", new HelpCommand<K, V>(collectionManager));
     }
 
-    public static HashMap<String, Command<? extends Product>> getCommands() {
+    public static HashMap<String, Command<?, ? extends Product>> getCommands() {
         return commands;
+    }
+
+    public static <K, V extends Product> void addCommand(String key, Command<K, V> value) {
+        commands.put(key, value);
+    }
+
+    public static void removeCommand(String key) {
+        commands.remove(key);
     }
 
     public boolean getWork() {
@@ -42,7 +34,7 @@ public class CommandManager<T extends Product> {
 
     public void existCommand() {
         Scanner scanner = new Scanner(System.in);
-        try {
+        try (scanner) {
             System.out.flush();
             System.out.println("Введите команду: ");
             String command = scanner.nextLine().trim().toLowerCase();
@@ -57,7 +49,7 @@ public class CommandManager<T extends Product> {
                 System.out.println("Команда \"" + args[0] + "\" не найдена.");
             }
         } catch (Exception e) {
-            System.out.println("Something went wrong. " + e.getMessage() + ". See you next time.");
+            System.out.println("Something went wrong. " + e.getMessage());
             this.isWorking = false;
             System.exit(0);
         }
