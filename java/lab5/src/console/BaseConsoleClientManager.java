@@ -20,8 +20,8 @@ public class BaseConsoleClientManager extends AbstractClientManager
     }
 
     public Product getProduct() {
-        ProductBuilder<Product> productBuilder = new ProductBuilder<Product>(new Product());
-        
+        ProductBuilder<Product> productBuilder = createProductBuilder(new Product());
+
         productBuilder = buildProductInput(productBuilder);
 
         productBuilder = productBuilder.setCreationDate(LocalDateTime.now());
@@ -30,15 +30,19 @@ public class BaseConsoleClientManager extends AbstractClientManager
         productBuilder = productBuilder.setId(idManager.generateId());
         Product product = productBuilder.create();
         idManager.addId(product);
-        
+
         return product;
     }
 
+    public ProductBuilder<Product> createProductBuilder(Product product) {
+        return new ProductBuilder<Product>(product);
+    }
+
     // public Product getProductWithId(Long id) {
-    //     ProductBuilder<Product> productBuilder = new ProductBuilder<Product>(new Product());
+    // ProductBuilder<Product> productBuilder = new ProductBuilder<Product>(new
+    // Product());
 
-    //     productBuilder = buildProductWithoutId(productBuilder);
-
+    // productBuilder = buildProductWithoutId(productBuilder);
 
     // }
 

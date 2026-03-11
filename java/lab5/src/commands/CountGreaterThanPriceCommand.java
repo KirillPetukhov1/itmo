@@ -4,20 +4,21 @@ import src.baseabstractions.Command;
 import src.basecollection.CollectionManager;
 import src.baseobjects.Product;
 
-public class CountGreaterThanPriceCommand<K, V extends Product> extends Command<K, V> {
+public class CountGreaterThanPriceCommand<K extends Comparable<K>, V extends Product> extends Command<K, V> {
         
-    public HelpCommand(CollectionManager<K, V> collectionManager) {
+    public CountGreaterThanPriceCommand(CollectionManager<K, V> collectionManager) {
         super(collectionManager);
     }
 
     public void execute(String[] args) {
-        if (args.length == 1) {
-            getCollectionManager().help();
+        if (args.length == 2) {
+            long price = Long.parseLong(args[1]);
+            getCollectionManager().countGreaterThanPrice(price);
         } else
             throw new IllegalArgumentException("Number of arguments is wrong.");
     }
 
     public String getDescription() {
-        return "";
+        return "count_greater_than_price price : вывести количество элементов, значение поля price которых больше заданного";
     }
 }

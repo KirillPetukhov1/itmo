@@ -8,7 +8,7 @@ import src.basecollection.CollectionManager;
 import src.baseobjects.Product;
 import src.commands.*;
 
-public class CommandManager<K, V extends Product> {
+public class CommandManager<K extends Comparable<K>, V extends Product> {
     private boolean isWorking = true;
     private static HashMap<String, Command<?, ? extends Product>> commands = new HashMap<>();
 
@@ -20,7 +20,7 @@ public class CommandManager<K, V extends Product> {
         return commands;
     }
 
-    public static <K, V extends Product> void addCommand(String key, Command<K, V> value) {
+    public static <K extends Comparable<K>, V extends Product> void addCommand(String key, Command<K, V> value) {
         commands.put(key, value);
     }
 

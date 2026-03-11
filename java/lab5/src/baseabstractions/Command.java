@@ -3,7 +3,7 @@ package src.baseabstractions;
 import src.basecollection.CollectionManager;
 import src.baseobjects.Product;
 
-public abstract class Command<K, V extends Product> {
+public abstract class Command<K extends Comparable<K>, V extends Product> {
     CollectionManager<K, V> collectionManager;
 
     public Command(CollectionManager<K, V> collectionManager) {

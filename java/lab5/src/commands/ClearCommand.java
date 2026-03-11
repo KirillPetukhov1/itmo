@@ -4,9 +4,9 @@ import src.baseabstractions.Command;
 import src.basecollection.CollectionManager;
 import src.baseobjects.Product;
 
-public class ClearCommand<K, V extends Product> extends Command<K, V> {
+public class ClearCommand<K extends Comparable<K>, V extends Product> extends Command<K, V> {
         
-    public HelpCommand(CollectionManager<K, V> collectionManager) {
+    public ClearCommand(CollectionManager<K, V> collectionManager) {
         super(collectionManager);
     }
 
@@ -18,6 +18,6 @@ public class ClearCommand<K, V extends Product> extends Command<K, V> {
     }
 
     public String getDescription() {
-        return "";
+        return "clear : очистить коллекцию";
     }
 }

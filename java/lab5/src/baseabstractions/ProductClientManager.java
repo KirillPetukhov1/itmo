@@ -7,4 +7,6 @@ public interface ProductClientManager<T extends Product> {
     T getProduct();
 
     ProductBuilder<T> buildProductInput(ProductBuilder<T> productBuilder);
+
+    ProductBuilder<T> createProductBuilder(T product);
 }

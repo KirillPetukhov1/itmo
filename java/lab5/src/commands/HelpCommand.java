@@ -4,7 +4,7 @@ import src.baseabstractions.Command;
 import src.basecollection.CollectionManager;
 import src.baseobjects.Product;
 
-public class HelpCommand<K, V extends Product> extends Command<K, V> {
+public class HelpCommand<K extends Comparable<K>, V extends Product> extends Command<K, V> {
 
     public HelpCommand(CollectionManager<K, V> collectionManager) {
         super(collectionManager);

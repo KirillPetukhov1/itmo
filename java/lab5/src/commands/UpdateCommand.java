@@ -4,7 +4,7 @@ import src.baseabstractions.Command;
 import src.basecollection.CollectionManager;
 import src.baseobjects.Product;
 
-public class UpdateCommand<K, V extends Product> extends Command<K, V> {
+public class UpdateCommand<K extends Comparable<K>, V extends Product> extends Command<K, V> {
         
     public UpdateCommand(CollectionManager<K, V> collectionManager) {
         super(collectionManager);
