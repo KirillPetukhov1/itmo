@@ -8,6 +8,10 @@ import src.baseobjects.Person;
 public class PersonBuilder<T extends Person> implements Builder<T> {
     private T person;
 
+    public PersonBuilder(T person) {
+        this.person = person;
+    }
+
     public PersonBuilder<T> setName(String name) {
         person.setName(name);
         return this;

@@ -1,11 +1,11 @@
 package src.productcreation;
 
-import src.baseabstractions.Director;
+import src.baseabstractions.AbstractDirector;
 import src.baseobjects.Color;
 import src.baseobjects.Country;
 import src.baseobjects.Person;
 
-public class PersonDirector<T extends PersonBuilder<? extends Person>> extends Director<T> {
+public class PersonDirector<T extends PersonBuilder<? extends Person>> extends AbstractDirector<T> {
 
     public PersonDirector(T builder) {
         super(builder);
