@@ -1,21 +1,21 @@
-package src.console;
+package src.workwithfiles;
 
 import java.time.LocalDateTime;
 
 import src.baseabstractions.AbstractClientManager;
-import src.baseabstractions.ProductClientManager;
 import src.baseabstractions.PersonClientManager;
+import src.baseabstractions.ProductClientManager;
 import src.baseabstractions.ReaderWriter;
-import src.baseobjects.Product;
 import src.baseobjects.Person;
-import src.productcreation.ProductBuilder;
+import src.baseobjects.Product;
 import src.productcreation.LongIdManager;
 import src.productcreation.PersonBuilder;
+import src.productcreation.ProductBuilder;
 
-public class BaseConsoleClientManager extends AbstractClientManager
+public class BaseFileConsoleClientManager extends AbstractClientManager
         implements ProductClientManager<Product>, PersonClientManager<Person> {
 
-    public BaseConsoleClientManager(ReaderWriter readerWriter) {
+    public BaseFileConsoleClientManager(ReaderWriter readerWriter) {
         super(readerWriter);
     }
 
@@ -39,7 +39,7 @@ public class BaseConsoleClientManager extends AbstractClientManager
     }
 
     public ProductBuilder<Product> buildProductInput(ProductBuilder<Product> productBuilder) {
-        ProductReader<Product> productReader = new ProductReader<>(productBuilder, getReaderWriter());
+        ProductFileReader<Product> productReader = new ProductFileReader<>(productBuilder, getReaderWriter());
         productReader.readName();
         productReader.readCoordinates();
         productReader.readPrice();
@@ -55,7 +55,7 @@ public class BaseConsoleClientManager extends AbstractClientManager
 
     public Person getPerson() {
         PersonBuilder<Person> personBuilder = new PersonBuilder<>(new Person());
-        PersonReader<Person> personReader = new PersonReader<>(personBuilder, getReaderWriter());
+        PersonFileReader<Person> personReader = new PersonFileReader<>(personBuilder, getReaderWriter());
         personReader.readName();
         personReader.readHeight();
         personReader.readHairColor();

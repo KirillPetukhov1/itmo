@@ -11,9 +11,26 @@ import src.commands.*;
 public class CommandManager<K extends Comparable<K>, V extends Product> {
     private boolean isWorking = true;
     private static HashMap<String, Command<?, ? extends Product>> commands = new HashMap<>();
+    Scanner scanner;
 
-    public CommandManager(CollectionManager<K, V> collectionManager) {
+    public CommandManager(CollectionManager<K, V> collectionManager, Scanner scanner) {
+        this.scanner = scanner;
+
         commands.put("help", new HelpCommand<K, V>(collectionManager));
+        commands.put("info", new InfoCommand<K, V>(collectionManager));
+        commands.put("show", new ShowCommand<K, V>(collectionManager));
+        commands.put("insert", new InsertCommand<K, V>(collectionManager));
+        commands.put("update", new UpdateCommand<K, V>(collectionManager));
+        commands.put("remove_key", new RemoveKeyCommand<K, V>(collectionManager));
+        commands.put("clear", new ClearCommand<K, V>(collectionManager));
+        commands.put("save", new SaveCommand<K, V>(collectionManager));
+        commands.put("exit", new ExitCommand<K, V>(collectionManager));
+        commands.put("remove_lower", new RemoveLowerCommand<K, V>(collectionManager));
+        commands.put("replace_if_greater", new ReplaceIfGreaterCommand<K, V>(collectionManager));
+        commands.put("remove_greater_key", new RemoveGreaterKeyCommand<K, V>(collectionManager));
+        commands.put("count_greater_than_price", new CountGreaterThanPriceCommand<K, V>(collectionManager));
+        commands.put("print_unique_unit_of_measure", new PrintUniqueUnitOfMeasureCommand<K, V>(collectionManager));
+        commands.put("print_field_descending_price", new PrintFieldDescendingPriceCommand<K, V>(collectionManager));
     }
 
     public static HashMap<String, Command<?, ? extends Product>> getCommands() {
@@ -33,8 +50,7 @@ public class CommandManager<K extends Comparable<K>, V extends Product> {
     }
 
     public void existCommand() {
-        Scanner scanner = new Scanner(System.in);
-        try (scanner) {
+        try {
             System.out.flush();
             System.out.println("Введите команду: ");
             String command = scanner.nextLine().trim().toLowerCase();

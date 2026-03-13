@@ -13,14 +13,16 @@ import src.baseobjects.UnitOfMeasure;
 import src.console.CommandManager;
 import src.productcreation.LongIdManager;
 import src.productcreation.ProductBuilder;
+import src.baseabstractions.AbstractFileManager;
 import src.baseabstractions.ParseKey;
 
 public class CollectionManager<K extends Comparable<K>, T extends Product> {
     Hashtable<K, T> products = new Hashtable<>();
     private LocalDateTime localDateTime = LocalDateTime.now();
-    private String filename;
     private ProductClientManager<T> productClientManager;
     private ParseKey<K> keyParser;
+    private LongIdManager<T> idManager;
+    private AbstractFileManager<Hashtable<K, T>> fileManager;
 
     public void setProducts(Hashtable<K, T> products) {
         this.products = products;
@@ -32,14 +34,6 @@ public class CollectionManager<K extends Comparable<K>, T extends Product> {
 
     public LocalDateTime getLocalDateTime() {
         return localDateTime;
-    }
-
-    public void setFilename(String filename) {
-        this.filename = filename;
-    }
-
-    public String getFilename() {
-        return filename;
     }
 
     public void setProductClientManager(ProductClientManager<T> productClientManager) {
@@ -56,6 +50,22 @@ public class CollectionManager<K extends Comparable<K>, T extends Product> {
 
     public ParseKey<K> getKeyParser() {
         return keyParser;
+    }
+
+    public void setIdManager(LongIdManager<T> idManager) {
+        this.idManager = idManager;
+    }
+
+    public LongIdManager<T> getIdManager() {
+        return idManager;
+    }
+
+    public void setFileManager(AbstractFileManager<Hashtable<K, T>> fileManager) {
+        this.fileManager = fileManager;
+    }
+
+    public AbstractFileManager<Hashtable<K, T>> getFileManager() {
+        return fileManager;
     }
 
     public void help() {
@@ -80,6 +90,10 @@ public class CollectionManager<K extends Comparable<K>, T extends Product> {
     }
 
     public void insert(K key) {
+        insert(key, productClientManager);
+    }
+
+    public void insert(K key, ProductClientManager<T> productClientManager) {
         if (products.containsKey(key)) {
             System.out.println("Коллекция уже содержит элемент с таким ключом. Будет произведена перезапись.");
         }
@@ -89,6 +103,10 @@ public class CollectionManager<K extends Comparable<K>, T extends Product> {
     }
 
     public void update(long id) {
+        update(id, productClientManager);
+    }
+
+    public void update(long id, ProductClientManager<T> productClientManager) {
         if (!(new LongIdManager<T>()).isIdExists(id)) {
             System.out.println("Коллекция не содержит элемент с таким индексом.");
             return;
@@ -115,28 +133,35 @@ public class CollectionManager<K extends Comparable<K>, T extends Product> {
     }
 
     public void removeKey(K key) {
-        products.remove(key);
+        idManager.removeId(products.remove(key));
         System.out.println("Коллекция успешно обновлена.");
     }
 
     public void clear() {
         products = new Hashtable<>();
+        idManager.clear();
         System.out.println("Коллекция успешно очищена.");
     }
 
     public void save() {
-        // TODO
-    }
-
-    public void executeScript(String fileName) {
-        // TODO
+        try {
+            fileManager.save(products);
+            System.out.println("Коллекция успешно сохранена.");
+        } catch (Exception e) {
+            System.out.println("Что-то пошло не так. ");
+        }
     }
 
     public void exit() {
-        // TODO
+        System.out.println("Работа завершена, до свидания!");
+        System.exit(0);
     }
 
     public void removeLower() {
+        removeLower();
+    }
+
+    public void removeLower(ProductClientManager<T> productClientManager) {
         T product = productClientManager.getProduct();
 
         ArrayList<K> deleteKeys = new ArrayList<>();
@@ -148,7 +173,7 @@ public class CollectionManager<K extends Comparable<K>, T extends Product> {
         }
 
         for (var key : deleteKeys) {
-            products.remove(key);
+            idManager.removeId(products.remove(key));
         }
 
         if (deleteKeys.size() > 0) {
@@ -157,9 +182,14 @@ public class CollectionManager<K extends Comparable<K>, T extends Product> {
     }
 
     public void replaceIfGreater(K key) {
+        replaceIfGreater(key, productClientManager);
+    }
+
+    public void replaceIfGreater(K key, ProductClientManager<T> productClientManager) {
         T product = productClientManager.getProduct();
 
         if (product.compareTo(products.get(key)) < 0) {
+            idManager.removeId(products.get(key));
             products.replace(key, product);
             System.out.println("Коллекция успешно обновлена.");
         }
@@ -175,7 +205,7 @@ public class CollectionManager<K extends Comparable<K>, T extends Product> {
         }
 
         for (var key : deleteKeys) {
-            products.remove(key);
+            idManager.removeId(products.remove(key));
         }
 
         if (deleteKeys.size() > 0) {

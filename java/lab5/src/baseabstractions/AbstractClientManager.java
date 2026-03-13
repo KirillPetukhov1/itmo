@@ -10,4 +10,8 @@ public abstract class AbstractClientManager {
     public ReaderWriter getReaderWriter() {
         return readerWriter;
     }
+
+    public void setReaderWriter(ReaderWriter readerWriter) {
+        this.readerWriter = readerWriter;
+    }
 }

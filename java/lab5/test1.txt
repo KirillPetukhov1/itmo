@@ -1,0 +1,49 @@
+insert a
+product_A
+100
+200
+228
+00A
+333
+GRAMS
+VASIA
+175
+GREEN
+SPAIN
+insert b
+product_B
+333
+200
+228
+00A
+333
+SQUARE_METERS
+MISHA
+175
+GREEN
+SPAIN
+insert c
+product_C
+200
+200
+228
+00B
+333
+GRAMS
+ANDREI
+175
+GREEN
+SPAIN
+insert d
+product_D
+150
+200
+228
+00B
+333
+GRAMS
+PETAY
+175
+BROWN
+JAPAN
+save

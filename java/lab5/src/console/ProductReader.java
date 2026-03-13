@@ -21,6 +21,7 @@ public class ProductReader<T extends Product> extends ObjectReader<T> {
             try {
                 String name = getReaderWriter().readLine();
                 ((ProductBuilder<T>) getBuilder()).setName(name);
+                return;
             } catch (NullPointerException | IllegalArgumentException e) {
                 System.out.println("Имя введёно неверно. Введите ещё раз: ");
             }
@@ -62,6 +63,7 @@ public class ProductReader<T extends Product> extends ObjectReader<T> {
             try {
                 long price = getReaderWriter().readLong();
                 ((ProductBuilder<T>) getBuilder()).setPrice(price);
+                return;
             } catch (NullPointerException | IllegalArgumentException e) {
                 System.out.println("Цена введёна неверно. Введите ещё раз: ");
             }
@@ -74,6 +76,7 @@ public class ProductReader<T extends Product> extends ObjectReader<T> {
             try {
                 String partNumber = getReaderWriter().readLine();
                 ((ProductBuilder<T>) getBuilder()).setPartNumber(partNumber);
+                return;
             } catch (NullPointerException | IllegalArgumentException e) {
                 System.out.println("Номер партии введён неверно. Введите ещё раз: ");
             }
@@ -86,6 +89,7 @@ public class ProductReader<T extends Product> extends ObjectReader<T> {
             try {
                 Long manufactureCost = getReaderWriter().readLong();
                 ((ProductBuilder<T>) getBuilder()).setManufactureCost(manufactureCost);
+                return;
             } catch (NullPointerException | IllegalArgumentException e) {
                 System.out.println("Цена производства введёна неверно. Введите ещё раз: ");
             }
@@ -102,6 +106,7 @@ public class ProductReader<T extends Product> extends ObjectReader<T> {
                 }
                 UnitOfMeasure unitOfMeasure = UnitOfMeasure.valueOf(result.toUpperCase());
                 ((ProductBuilder<T>) getBuilder()).setUnitOfMeasure(unitOfMeasure);
+                return;
             } catch (NullPointerException | IllegalArgumentException e) {
                 System.out.println("Единица измерения введёна неверно. Введите ещё раз: ");
             }

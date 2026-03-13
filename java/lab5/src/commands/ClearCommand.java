@@ -12,7 +12,7 @@ public class ClearCommand<K extends Comparable<K>, V extends Product> extends Co
 
     public void execute(String[] args) {
         if (args.length == 1) {
-            getCollectionManager().help();
+            getCollectionManager().clear();
         } else
             throw new IllegalArgumentException("Number of arguments is wrong.");
     }
