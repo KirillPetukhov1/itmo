@@ -8,11 +8,26 @@ import src.basecollection.CollectionManager;
 import src.baseobjects.Product;
 import src.commands.*;
 
+/**
+ * Manages the registration and execution of console commands.
+ * Provides a command registry and handles user input processing.
+ *
+ * @param <K> the type of keys used in the collection, must be Comparable
+ * @param <V> the type of values stored in the collection, must extend Product
+ */
 public class CommandManager<K extends Comparable<K>, V extends Product> {
     private boolean isWorking = true;
     private static HashMap<String, Command<?, ? extends Product>> commands = new HashMap<>();
     Scanner scanner;
 
+    /**
+     * Constructs a CommandManager with the specified collection manager and
+     * scanner.
+     * Initializes and registers all available commands.
+     *
+     * @param collectionManager the collection manager to operate on
+     * @param scanner           the scanner for reading user input
+     */
     public CommandManager(CollectionManager<K, V> collectionManager, Scanner scanner) {
         this.scanner = scanner;
 
@@ -33,22 +48,52 @@ public class CommandManager<K extends Comparable<K>, V extends Product> {
         commands.put("print_field_descending_price", new PrintFieldDescendingPriceCommand<K, V>(collectionManager));
     }
 
+    /**
+     * Returns the map of registered commands.
+     *
+     * @return HashMap containing command names as keys and Command objects as
+     *         values
+     */
     public static HashMap<String, Command<?, ? extends Product>> getCommands() {
         return commands;
     }
 
+    /**
+     * Adds a new command to the registry.
+     *
+     * @param key   the command name
+     * @param value the Command object to register
+     * @param <K>   the key type of the collection
+     * @param <V>   the value type of the collection
+     */
     public static <K extends Comparable<K>, V extends Product> void addCommand(String key, Command<K, V> value) {
         commands.put(key, value);
     }
 
+    /**
+     * Removes a command from the registry.
+     *
+     * @param key the command name to remove
+     */
     public static void removeCommand(String key) {
         commands.remove(key);
     }
 
+    /**
+     * Returns the working state of the command manager.
+     *
+     * @return true if the manager is working, false otherwise
+     */
     public boolean getWork() {
         return this.isWorking;
     }
 
+    /**
+     * Processes a single user command.
+     * Reads input from the scanner, parses it, and executes the corresponding
+     * command.
+     * Handles command not found errors and execution exceptions.
+     */
     public void existCommand() {
         try {
             System.out.flush();

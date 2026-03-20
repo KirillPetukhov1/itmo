@@ -12,13 +12,32 @@ import src.productcreation.LongIdManager;
 import src.productcreation.PersonBuilder;
 import src.productcreation.ProductBuilder;
 
+/**
+ * File-based implementation of client managers for both Product and Person
+ * objects.
+ * Provides file reading-based creation and input handling for products and
+ * persons,
+ * designed for script execution and batch processing.
+ */
 public class BaseFileConsoleClientManager extends AbstractClientManager
         implements ProductClientManager<Product>, PersonClientManager<Person> {
 
+    /**
+     * Constructs a BaseFileConsoleClientManager with the specified reader/writer.
+     *
+     * @param readerWriter the reader/writer for file I/O operations
+     */
     public BaseFileConsoleClientManager(ReaderWriter readerWriter) {
         super(readerWriter);
     }
 
+    /**
+     * Creates a new Product object through file-based input.
+     * Handles all product fields including automatic ID generation and owner
+     * creation.
+     *
+     * @return the created Product object
+     */
     public Product getProduct() {
         ProductBuilder<Product> productBuilder = createProductBuilder(new Product());
 
@@ -34,10 +53,24 @@ public class BaseFileConsoleClientManager extends AbstractClientManager
         return product;
     }
 
+    /**
+     * Creates a product builder initialized with the specified product.
+     *
+     * @param product the product to initialize the builder with
+     * @return a new product builder
+     */
     public ProductBuilder<Product> createProductBuilder(Product product) {
         return new ProductBuilder<Product>(product);
     }
 
+    /**
+     * Builds product input by reading all product fields from file.
+     * Includes reading of basic product fields and associated person (owner)
+     * using file-specific readers.
+     *
+     * @param productBuilder the builder to use for product construction
+     * @return the updated product builder
+     */
     public ProductBuilder<Product> buildProductInput(ProductBuilder<Product> productBuilder) {
         ProductFileReader<Product> productReader = new ProductFileReader<>(productBuilder, getReaderWriter());
         productReader.readName();
@@ -53,6 +86,12 @@ public class BaseFileConsoleClientManager extends AbstractClientManager
         return productBuilder;
     }
 
+    /**
+     * Creates a new Person object through file-based input.
+     * Handles all person fields using file-specific readers.
+     *
+     * @return the created Person object
+     */
     public Person getPerson() {
         PersonBuilder<Person> personBuilder = new PersonBuilder<>(new Person());
         PersonFileReader<Person> personReader = new PersonFileReader<>(personBuilder, getReaderWriter());

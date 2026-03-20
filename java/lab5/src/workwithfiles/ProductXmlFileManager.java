@@ -18,24 +18,58 @@ import src.productcreation.LongIdManager;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.XStreamException;
 
+/**
+ * XML file manager for saving and loading Product collections using XStream
+ * library.
+ * Handles serialization/deserialization of Hashtable collections with Product
+ * objects.
+ *
+ * @param <K> the type of keys used in the collection, must be Comparable
+ * @param <T> the type of values stored in the collection, must extend Product
+ */
 public class ProductXmlFileManager<K extends Comparable<K>, T extends Product>
         extends AbstractFileManager<Hashtable<K, T>> {
     private LongIdManager<T> idManager;
 
+    /**
+     * Constructs a ProductXmlFileManager with the specified file name.
+     * Creates a new LongIdManager instance for ID management.
+     *
+     * @param fileName the name of the XML file to manage
+     */
     public ProductXmlFileManager(String fileName) {
         super(fileName);
         this.idManager = new LongIdManager<>();
     }
 
+    /**
+     * Constructs a ProductXmlFileManager with the specified file name and ID
+     * manager.
+     *
+     * @param fileName  the name of the XML file to manage
+     * @param idManager the ID manager to use for tracking product IDs
+     */
     public ProductXmlFileManager(String fileName, LongIdManager<T> idManager) {
         super(fileName);
         this.idManager = idManager;
     }
 
+    /**
+     * Returns the ID manager used for tracking product IDs.
+     *
+     * @return the LongIdManager instance
+     */
     public LongIdManager<T> getIdManager() {
         return idManager;
     }
 
+    /**
+     * Saves the products Hashtable to an XML file.
+     * Uses XStream for XML serialization with UTF-8 encoding.
+     *
+     * @param products the Hashtable of products to save
+     * @throws Exception if an error occurs during save operation
+     */
     @Override
     public void save(Hashtable<K, T> products) throws Exception {
         XStream xstream = new XStream();
@@ -56,6 +90,15 @@ public class ProductXmlFileManager<K extends Comparable<K>, T extends Product>
         }
     }
 
+    /**
+     * Loads the products Hashtable from an XML file.
+     * Uses XStream for XML deserialization and populates the ID manager with loaded
+     * IDs.
+     *
+     * @return the loaded Hashtable of products, or an empty Hashtable if loading
+     *         fails
+     * @throws Exception if an error occurs during load operation
+     */
     @Override
     public Hashtable<K, T> load() throws Exception {
         File file = new File(getFileName());

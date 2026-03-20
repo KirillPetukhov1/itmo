@@ -1,0 +1,4 @@
+ls -r -filter "*.java" | % FullName > sources.txt
+
+javadoc -d ./docs -sourcepath ./src -cp ./lib/* $(ls -r -filter "*.java" | % FullName)
+

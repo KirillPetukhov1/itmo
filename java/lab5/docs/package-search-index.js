@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html","k":"18"},{"l":"src.baseabstractions"},{"l":"src.basecollection"},{"l":"src.baseobjects"},{"l":"src.commands"},{"l":"src.console"},{"l":"src.console.keyparsers"},{"l":"src.productcreation"},{"l":"src.workwithfiles"}];updateSearchResults();

@@ -1,0 +1,12 @@
+insert a
+product_A
+100
+200
+100
+00A
+333
+GRAMMS
+VASIA
+175
+GREEN
+SPAIN

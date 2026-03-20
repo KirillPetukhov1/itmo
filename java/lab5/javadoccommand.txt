@@ -1,0 +1,5 @@
+javadoc -d "C:\Users\k4484\itmo\itmo\java\lab5\docs" -sourcepath "C:\Users\k4484\itmo\itmo\java\lab5\src" -classpath "C:\Users\k4484\itmo\itmo\java\lab5\lib" -subpackages "C:\Users\k4484\itmo\itmo\java\lab5"
+
+javadoc -d \Users\k4484\itmo\itmo\java\lab5\docs -sourcepath \Users\k4484\itmo\itmo\java\lab5\src -classpath \Users\k4484\itmo\itmo\java\lab5\lib -subpackages \Users\k4484\itmo\itmo\java\lab5
+
+javadoc -d ./docs -sourcepath ./src -classpath "./lib/*;." -subpackages src
