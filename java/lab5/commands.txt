@@ -2,3 +2,30 @@ ls -r -filter "*.java" | % FullName > sources.txt
 
 javadoc -d ./docs -sourcepath ./src -cp ./lib/* $(ls -r -filter "*.java" | % FullName)
 
+
+
+ssh -p 2222 s501755@helios.se.ifmo.ru 
+scp -P 2222 -r . s501755@helios.se.ifmo.ru:~/prog_java/lab5
+kTRk<8864
+
+
+find . -name "*.java" > sources.txt
+
+
+javac -d ./out/ @sources.txt -cp ./lib/xpp3-1.1.4c.jar -cp ./lib/xstream-1.4.21.jar
+
+
+vim MANIFEST.MF
+=================
+Manifest-Version: 1.0
+Created-By: 17.0.12 (Oracle Corporation)
+Main-Class: Main
+Class-Path: lib/xpp3-1.1.4c.jar lib/xstream-1.4.21.jar
+=================
+
+jar -c -f lab5.jar -m MANIFEST.MF -C out/ .
+
+
+export LAB5_FILENAME=products.xml
+
+java -jar lab5.jar
