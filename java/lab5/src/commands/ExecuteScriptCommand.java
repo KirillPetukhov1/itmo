@@ -57,31 +57,32 @@ public class ExecuteScriptCommand<K extends Comparable<K>, V extends Product> ex
                     ConsoleFileManager readerWriter = new ConsoleFileManager(new Scanner(new File(fileName)));
                     if (productClientManager instanceof AbstractClientManager) {
                         ((AbstractClientManager) productClientManager).setReaderWriter(readerWriter);
-                        try {
-                            while (readerWriter.getScanner().hasNext()) {
+                        while (readerWriter.getScanner().hasNext()) {
+                            try {
                                 String[] commandAndArgument = readerWriter.readCommandAndArgument();
                                 String command = commandAndArgument[0];
-                                if (commands.containsKey(command)) {
-                                    if (command.equals("insert")) {
-                                        K key = getCollectionManager().getKeyParser()
-                                                .getParsedObject(commandAndArgument[1]);
-                                        getCollectionManager().insert(key, productClientManager);
-                                    } else if (command.equals("update")) {
-                                        long id = Long.parseLong(commandAndArgument[1]);
-                                        getCollectionManager().update(id, productClientManager);
-                                    } else if (command.equals("remove_lower")) {
-                                        getCollectionManager().removeLower(productClientManager);
-                                    } else if (command.equals("replace_if_greater")) {
-                                        K key = getCollectionManager().getKeyParser()
-                                                .getParsedObject(commandAndArgument[1]);
-                                        getCollectionManager().replaceIfGreater(key, productClientManager);
-                                    } else {
-                                        commands.get(command).execute(commandAndArgument);
-                                    }
+
+                                System.out.println(command + ":");
+
+                                if (command.equals("insert")) {
+                                    K key = getCollectionManager().getKeyParser()
+                                            .getParsedObject(commandAndArgument[1]);
+                                    getCollectionManager().insert(key, productClientManager);
+                                } else if (command.equals("update")) {
+                                    long id = Long.parseLong(commandAndArgument[1]);
+                                    getCollectionManager().update(id, productClientManager);
+                                } else if (command.equals("remove_lower")) {
+                                    getCollectionManager().removeLower(productClientManager);
+                                } else if (command.equals("replace_if_greater")) {
+                                    K key = getCollectionManager().getKeyParser()
+                                            .getParsedObject(commandAndArgument[1]);
+                                    getCollectionManager().replaceIfGreater(key, productClientManager);
+                                } else {
+                                    commands.get(command).execute(commandAndArgument);
                                 }
+                            } catch (IllegalArgumentException | NullPointerException | NoSuchElementException e) {
+                                System.out.println(e);
                             }
-                        } catch (IllegalArgumentException | NullPointerException | NoSuchElementException e) {
-                            System.out.println(e);
                         }
                     }
                 } catch (FileNotFoundException e) {

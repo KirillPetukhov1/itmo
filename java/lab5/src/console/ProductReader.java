@@ -33,12 +33,14 @@ public class ProductReader<T extends Product> extends ObjectReader<T> {
      * Recursively prompts until a valid name is entered.
      */
     public void readName() {
-        System.out.println("Введите название продукта: ");
+        System.out.println("Enter the product name:");
         try {
             String name = getReaderWriter().readLine();
             ((ProductBuilder<T>) getBuilder()).setName(name);
         } catch (NullPointerException | IllegalArgumentException e) {
-            System.out.println("Имя введёно неверно. Введите ещё раз.");
+            System.out.println("The name was entered incorrectly.");
+            System.out.println(e.toString());
+            System.out.println("Enter it again.");
             readName();
         }
     }
@@ -53,27 +55,31 @@ public class ProductReader<T extends Product> extends ObjectReader<T> {
         Double y = null;
 
         try {
-            System.out.println("Введите координату X: ");
+            System.out.println("Enter the X coordinate:");
             while (x == null) {
                 try {
                     x = getReaderWriter().readLong();
                 } catch (NumberFormatException | NullPointerException e) {
-                    System.out.println("Число введено неверно. Введите ещё раз: ");
+                    System.out.println("The number was entered incorrectly.");
+                    System.out.println(e.toString());
+                    System.out.println("Enter it again.");
                 }
             }
 
-            System.out.println("Введите координату Y: ");
+            System.out.println("Enter the Y coordinate:");
             while (y == null) {
                 try {
                     y = getReaderWriter().readDouble();
                 } catch (NumberFormatException | NullPointerException e) {
-                    System.out.println("Число введено неверно. Введите ещё раз: ");
+                    System.out.println("The number was entered incorrectly.");
+                    System.out.println(e.toString());
+                    System.out.println("Enter it again.");
                 }
             }
 
             ((ProductBuilder<T>) getBuilder()).setCoordinates(new Coordinates(x, y));
         } catch (IllegalArgumentException e) {
-            System.out.println("Координата X больше 321. Введите ещё раз.");
+            System.out.println("The X coordinate is greater than 321. Enter it again.");
             readCoordinates();
         }
     }
@@ -83,12 +89,14 @@ public class ProductReader<T extends Product> extends ObjectReader<T> {
      * Recursively prompts until a valid price is entered.
      */
     public void readPrice() {
-        System.out.println("Введите цену: ");
+        System.out.println("Enter the price:");
         try {
             long price = getReaderWriter().readLong();
             ((ProductBuilder<T>) getBuilder()).setPrice(price);
         } catch (NullPointerException | IllegalArgumentException e) {
-            System.out.println("Цена введёна неверно. Введите ещё раз.");
+            System.out.println("The price was entered incorrectly.");
+            System.out.println(e.toString());
+            System.out.println("Enter it again.");
             readPrice();
         }
 
@@ -99,12 +107,14 @@ public class ProductReader<T extends Product> extends ObjectReader<T> {
      * Recursively prompts until a valid part number is entered.
      */
     public void readPartNumber() {
-        System.out.println("Введите номер партии: ");
+        System.out.println("Enter the part number:");
         try {
             String partNumber = getReaderWriter().readLine();
             ((ProductBuilder<T>) getBuilder()).setPartNumber(partNumber);
         } catch (NullPointerException | IllegalArgumentException e) {
-            System.out.println("Номер партии введён неверно. Введите ещё раз.");
+            System.out.println("The part number was entered incorrectly.");
+            System.out.println(e.toString());
+            System.out.println("Enter it again.");
             readPartNumber();
         }
     }
@@ -114,12 +124,14 @@ public class ProductReader<T extends Product> extends ObjectReader<T> {
      * Recursively prompts until a valid cost value is entered.
      */
     public void readManufactureCost() {
-        System.out.println("Введите цену производства: ");
+        System.out.println("Enter the manufacture cost:");
         try {
             Long manufactureCost = getReaderWriter().readLong();
             ((ProductBuilder<T>) getBuilder()).setManufactureCost(manufactureCost);
         } catch (NullPointerException | IllegalArgumentException e) {
-            System.out.println("Цена производства введёна неверно. Введите ещё раз: ");
+            System.out.println("The manufacture cost was entered incorrectly.");
+            System.out.println(e.toString());
+            System.out.println("Enter it again.");
             readManufactureCost();
         }
     }
@@ -130,7 +142,7 @@ public class ProductReader<T extends Product> extends ObjectReader<T> {
      * Recursively prompts until a valid unit is entered.
      */
     public void readUnitOfMeasure() {
-        System.out.println("Введите единицу измерения: " + Arrays.toString(UnitOfMeasure.values()));
+        System.out.println("Enter the unit of measure: " + Arrays.toString(UnitOfMeasure.values()));
         try {
             String result = getReaderWriter().readLine();
             if (result == "") {
@@ -139,7 +151,9 @@ public class ProductReader<T extends Product> extends ObjectReader<T> {
             UnitOfMeasure unitOfMeasure = UnitOfMeasure.valueOf(result.toUpperCase());
             ((ProductBuilder<T>) getBuilder()).setUnitOfMeasure(unitOfMeasure);
         } catch (NullPointerException | IllegalArgumentException e) {
-            System.out.println("Единица измерения введёна неверно. Введите ещё раз: ");
+            System.out.println("The unit of measure was entered incorrectly.");
+            System.out.println(e.toString());
+            System.out.println("Enter it again.");
             readUnitOfMeasure();
         }
     }
