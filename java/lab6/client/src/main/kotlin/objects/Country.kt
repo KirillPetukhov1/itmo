@@ -1,4 +1,10 @@
 package objects
 
-class Country {
+import kotlinx.serialization.Serializable
+
+@Serializable
+enum class Country {
+    SPAIN,
+    VATICAN,
+    JAPAN
 }
