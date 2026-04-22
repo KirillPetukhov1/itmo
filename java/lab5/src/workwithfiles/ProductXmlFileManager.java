@@ -83,9 +83,9 @@ public class ProductXmlFileManager<K extends Comparable<K>, T extends Product>
             xstream.toXML(products, writer);
         } catch (IOException e) {
             if (!(new File(getFileName())).canWrite()) {
-                System.out.println("Нет прав на запись в данный файл.");
+                System.out.println("There are no write permissions to this file.");
             } else {
-                System.out.println("Что-то пошло не так. Данные не сохранены. ");
+                System.out.println("Something went wrong. The data is not saved.");
             }
         }
     }
@@ -118,13 +118,13 @@ public class ProductXmlFileManager<K extends Comparable<K>, T extends Product>
                 new FileInputStream(file), "UTF-8")) {
             loadedProducts = (Hashtable<K, T>) xstream.fromXML(reader);
         } catch (NullPointerException | XStreamException e) {
-            System.out.println("Что-то не так с файлом или он пуст. Коллекция не содержит элементов. ");
+            System.out.println("Something is wrong with the file or it is empty. The collection does not contain any items.");
             return new Hashtable<>();
         } catch (FileNotFoundException e) {
             if (!(new File(getFileName()).canRead())) {
-                System.out.println("Нет прав на чтение данного файла.");
+                System.out.println("There are no rights to read this file.");
             } else {
-                System.out.println("Данный файл не найден.");
+                System.out.println("This file was not found.");
             }
             return new Hashtable<>();
         }

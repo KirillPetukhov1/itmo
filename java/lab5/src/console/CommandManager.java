@@ -1,6 +1,7 @@
 package src.console;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Scanner;
 
 import src.baseabstractions.Command;
@@ -84,7 +85,7 @@ public class CommandManager<K extends Comparable<K>, V extends Product> {
      *
      * @return true if the manager is working, false otherwise
      */
-    public boolean getWork() {
+    public boolean isWorking() {
         return this.isWorking;
     }
 
@@ -97,20 +98,28 @@ public class CommandManager<K extends Comparable<K>, V extends Product> {
     public void existCommand() {
         try {
             System.out.flush();
-            System.out.println("Введите команду: ");
-            String command = scanner.nextLine().trim().toLowerCase();
-            String[] args = command.split(" ");
-            if (commands.containsKey(args[0])) {
-                try {
-                    commands.get(args[0]).execute(args);
-                } catch (IllegalArgumentException e) {
-                    System.out.println("Что-то пошло не так. " + e.getMessage() + "Попробуйте еще раз.");
+            System.out.println("Enter the command: ");
+            if (scanner.hasNext()) {
+                String command = scanner.nextLine().trim().toLowerCase();
+                String[] args = command.split(" ");
+                if (commands.containsKey(args[0])) {
+                    try {
+                        commands.get(args[0]).execute(args);
+                    } catch (IllegalArgumentException e) {
+                        System.out.println("Something went wrong.");
+                        System.out.println(e.getMessage());
+                    }
+                } else {
+                    System.out.println("The \"" + args[0] + "\" command was not found.");
                 }
             } else {
-                System.out.println("Команда \"" + args[0] + "\" не найдена.");
+                System.out.println("The job is done, goodbye!");
+                this.isWorking = false;
+                System.exit(0);
             }
         } catch (Exception e) {
-            System.out.println("Something went wrong. " + e.getMessage());
+            System.out.println("Something went wrong.");
+            System.out.println(e.getMessage());
             this.isWorking = false;
             System.exit(0);
         }

@@ -31,7 +31,8 @@ public class ExitCommand<K extends Comparable<K>, V extends Product> extends Com
      */
     public void execute(String[] args) {
         if (args.length == 1) {
-            getCollectionManager().exit();
+            System.out.println("The job is done, goodbye!");
+            System.exit(0);
         } else
             throw new IllegalArgumentException("Number of arguments is wrong.");
     }

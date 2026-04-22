@@ -32,14 +32,16 @@ public class PersonReader<T extends Person> extends ObjectReader<T> {
      * Continues prompting until a valid name is entered.
      */
     public void readName() {
-        System.out.println("Введите имя обладателя: ");
+        System.out.println("Enter the person's name:");
         while (true) {
             try {
                 String name = getReaderWriter().readLine();
                 ((PersonBuilder<T>) getBuilder()).setName(name);
                 return;
             } catch (NullPointerException | IllegalArgumentException e) {
-                System.out.println("Имя введёно неверно. Введите ещё раз: ");
+                System.out.println("The number was entered incorrectly.");
+                System.out.println(e.toString());
+                System.out.println("Enter it again.");
             }
         }
     }
@@ -49,14 +51,16 @@ public class PersonReader<T extends Person> extends ObjectReader<T> {
      * Continues prompting until a valid height value is entered.
      */
     public void readHeight() {
-        System.out.println("Введите рост обладателя: ");
+        System.out.println("Enter the height:");
         while (true) {
             try {
                 long height = getReaderWriter().readLong();
                 ((PersonBuilder<T>) getBuilder()).setHeight(height);
                 return;
             } catch (NullPointerException | IllegalArgumentException e) {
-                System.out.println("Рост введён неверно. Введите ещё раз: ");
+                System.out.println("The height was entered incorrectly.");
+                System.out.println(e.toString());
+                System.out.println("Enter it again.");
             }
         }
     }
@@ -67,7 +71,7 @@ public class PersonReader<T extends Person> extends ObjectReader<T> {
      * is entered.
      */
     public void readHairColor() {
-        System.out.println("Введите цвет волос обладателя: " + Arrays.toString(Color.values()));
+        System.out.println("Enter the hair color: " + Arrays.toString(Color.values()));
         while (true) {
             try {
                 String result = getReaderWriter().readLine();
@@ -75,7 +79,9 @@ public class PersonReader<T extends Person> extends ObjectReader<T> {
                 ((PersonBuilder<T>) getBuilder()).setHairColor(hairColor);
                 return;
             } catch (NullPointerException | IllegalArgumentException e) {
-                System.out.println("Цвет волос введён неверно. Введите ещё раз: ");
+                System.out.println("The hair color was entered incorrectly.");
+                System.out.println(e.toString());
+                System.out.println("Enter it again.");
             }
         }
     }
@@ -87,7 +93,7 @@ public class PersonReader<T extends Person> extends ObjectReader<T> {
      * Continues prompting until a valid nationality is entered.
      */
     public void readNationality() {
-        System.out.println("Введите национальность: " + Arrays.toString(Country.values()));
+        System.out.println("Enter the nationality: " + Arrays.toString(Country.values()));
         while (true) {
             try {
                 String result = getReaderWriter().readLine();
@@ -98,7 +104,9 @@ public class PersonReader<T extends Person> extends ObjectReader<T> {
                 ((PersonBuilder<T>) getBuilder()).setNationality(nationality);
                 return;
             } catch (NullPointerException | IllegalArgumentException e) {
-                System.out.println("Национальность введёна неверно. Введите ещё раз: ");
+                System.out.println("The nationality was entered incorrectly.");
+                System.out.println(e.toString());
+                System.out.println("Enter it again.");
             }
         }
     }

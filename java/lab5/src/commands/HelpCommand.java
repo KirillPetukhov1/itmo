@@ -3,6 +3,7 @@ package src.commands;
 import src.baseabstractions.Command;
 import src.basecollection.CollectionManager;
 import src.baseobjects.Product;
+import src.console.CommandManager;
 
 /**
  * Command to display help information for all available commands.
@@ -31,7 +32,7 @@ public class HelpCommand<K extends Comparable<K>, V extends Product> extends Com
      */
     public void execute(String[] args) {
         if (args.length == 1) {
-            getCollectionManager().help();
+            CommandManager.getCommands().values().forEach(command -> System.out.println(command.getDescription()));
         } else
             throw new IllegalArgumentException("Number of arguments is wrong.");
     }

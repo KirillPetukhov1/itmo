@@ -41,7 +41,7 @@ public class Main {
                     new ExecuteScriptCommand<String, Product>(collectionManager, baseFileConsoleClientManager));
 
             while (true) {
-                while (commandManager.getWork()) {
+                while (commandManager.isWorking()) {
                     commandManager.existCommand();
                 }
             }

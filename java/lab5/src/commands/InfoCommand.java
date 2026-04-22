@@ -1,5 +1,7 @@
 package src.commands;
 
+import java.time.format.DateTimeFormatter;
+
 import src.baseabstractions.Command;
 import src.basecollection.CollectionManager;
 import src.baseobjects.Product;
@@ -32,7 +34,12 @@ public class InfoCommand<K extends Comparable<K>, V extends Product> extends Com
      */
     public void execute(String[] args) {
         if (args.length == 1) {
-            getCollectionManager().info();
+            String info = "Collection type: " + getCollectionManager().getProducts().getClass().getSimpleName()
+                    + "\nInitialization date: "
+                    + getCollectionManager().getLocalDateTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
+                    + "\nNumber of elements: "
+                    + getCollectionManager().getProducts().size();
+            System.out.println(info);
         } else
             throw new IllegalArgumentException("Number of arguments is wrong.");
     }

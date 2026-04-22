@@ -1,7 +1,6 @@
 package src.basecollection;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EnumSet;
@@ -10,7 +9,6 @@ import java.util.Hashtable;
 import src.baseabstractions.ProductClientManager;
 import src.baseobjects.Product;
 import src.baseobjects.UnitOfMeasure;
-import src.console.CommandManager;
 import src.productcreation.LongIdManager;
 import src.productcreation.ProductBuilder;
 import src.baseabstractions.AbstractFileManager;
@@ -131,23 +129,6 @@ public class CollectionManager<K extends Comparable<K>, T extends Product> {
     }
 
     /**
-     * Displays help information for all available commands.
-     */
-    public void help() {
-        CommandManager.getCommands().values().forEach(command -> System.out.println(command.getDescription()));
-    }
-
-    /**
-     * Displays information about the collection (type, initialization date, size).
-     */
-    public void info() {
-        String info = "Тип коллекции: " + products.getClass().getSimpleName() + "\nДата инициализации: "
-                + localDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")) + "\nКоличество элементов: "
-                + products.size();
-        System.out.println(info);
-    }
-
-    /**
      * Displays all elements in the collection.
      */
     public void show() {
@@ -156,7 +137,7 @@ public class CollectionManager<K extends Comparable<K>, T extends Product> {
                 System.out.println(product_k + ": " + products.get(product_k).toString());
             }
         } else {
-            System.out.println("Коллекция не содержит элементов.");
+            System.out.println("The collection does not contain any items.");
         }
     }
 
@@ -180,12 +161,12 @@ public class CollectionManager<K extends Comparable<K>, T extends Product> {
     public void insert(K key, ProductClientManager<T> productClientManager) {
         long oldProductId = 0;
         if (products.containsKey(key)) {
-            System.out.println("Коллекция уже содержит элемент с таким ключом. Будет произведена перезапись.");
+            System.out.println("The collection already contains an element with this key. It will be overwritten.");
             oldProductId = products.get(key).getId();
         }
         T product = productClientManager.getProduct();
         products.put(key, product);
-        System.out.println("Коллекция успешно обновлена.");
+        System.out.println("The collection has been successfully updated.");
         if (oldProductId != 0) {
             idManager.removeId(oldProductId);
         }
@@ -209,7 +190,7 @@ public class CollectionManager<K extends Comparable<K>, T extends Product> {
      */
     public void update(long id, ProductClientManager<T> productClientManager) {
         if (!idManager.isIdExists(id)) {
-            System.out.println("Коллекция не содержит элемент с таким индексом.");
+            System.out.println("The collection does not contain an element with this index.");
             return;
         }
 
@@ -223,14 +204,14 @@ public class CollectionManager<K extends Comparable<K>, T extends Product> {
         }
 
         if (currentKey == null) {
-            System.out.println("Коллекция не содержит элемент с таким индексом.");
+            System.out.println("The collection does not contain an element with this index.");
             return;
         }
 
         ProductBuilder<T> productBuilder = productClientManager.createProductBuilder(products.get(currentKey));
         productBuilder = productClientManager.buildProductInput(productBuilder);
         products.replace(currentKey, productBuilder.create());
-        System.out.println("Коллекция успешно обновлена.");
+        System.out.println("The collection has been successfully updated.");
     }
 
     /**
@@ -239,8 +220,13 @@ public class CollectionManager<K extends Comparable<K>, T extends Product> {
      * @param key the key of the product to remove
      */
     public void removeKey(K key) {
-        idManager.removeId(products.remove(key));
-        System.out.println("Коллекция успешно обновлена.");
+        T removed_object = products.remove(key);
+        if (removed_object != null) {
+            idManager.removeId(removed_object);
+            System.out.println("The collection has been successfully updated.");
+        } else {
+            System.out.println("The collection does not contain an element with this key.");
+        }
     }
 
     /**
@@ -249,7 +235,7 @@ public class CollectionManager<K extends Comparable<K>, T extends Product> {
     public void clear() {
         products = new Hashtable<>();
         idManager.clear();
-        System.out.println("Коллекция успешно очищена.");
+        System.out.println("The collection has been successfully cleared.");
     }
 
     /**
@@ -258,25 +244,18 @@ public class CollectionManager<K extends Comparable<K>, T extends Product> {
     public void save() {
         try {
             fileManager.save(products);
-            System.out.println("Коллекция успешно сохранена.");
+            System.out.println("The collection has been saved successfully.");
         } catch (Exception e) {
-            System.out.println("Что-то пошло не так. ");
+            System.out.println("Something went wrong.");
+            System.out.println(e.getMessage());
         }
-    }
-
-    /**
-     * Exits the application.
-     */
-    public void exit() {
-        System.out.println("Работа завершена, до свидания!");
-        System.exit(0);
     }
 
     /**
      * Removes all products lower than the default product client manager's product.
      */
     public void removeLower() {
-        removeLower();
+        removeLower(productClientManager);
     }
 
     /**
@@ -302,7 +281,7 @@ public class CollectionManager<K extends Comparable<K>, T extends Product> {
         }
 
         if (deleteKeys.size() > 0) {
-            System.out.println("Коллекция успешно обновлена.");
+            System.out.println("The collection has been successfully updated.");
         }
     }
 
@@ -329,7 +308,7 @@ public class CollectionManager<K extends Comparable<K>, T extends Product> {
         if (product.compareTo(products.get(key)) < 0) {
             idManager.removeId(products.get(key));
             products.replace(key, product);
-            System.out.println("Коллекция успешно обновлена.");
+            System.out.println("The collection has been successfully updated.");
         }
     }
 
@@ -352,7 +331,7 @@ public class CollectionManager<K extends Comparable<K>, T extends Product> {
         }
 
         if (deleteKeys.size() > 0) {
-            System.out.println("Коллекция успешно обновлена.");
+            System.out.println("The collection has been successfully updated.");
         }
     }
 
@@ -370,7 +349,7 @@ public class CollectionManager<K extends Comparable<K>, T extends Product> {
             }
         }
 
-        String info = "Коллекция содержит " + count + " элементов дороже заданного.";
+        String info = "The collection contains " + count + " items more expensive than the specified one.";
         System.out.println(info);
     }
 
@@ -385,7 +364,7 @@ public class CollectionManager<K extends Comparable<K>, T extends Product> {
             }
         }
 
-        String info = "Коллекция содержит следующие уникальные значения unitOfMeasure: ";
+        String info = "The collection contains the following unique UnitOfMeasure values: ";
         for (var element : unitOfMeasureSet) {
             info += "\n" + element;
         }
@@ -396,7 +375,7 @@ public class CollectionManager<K extends Comparable<K>, T extends Product> {
      * Prints all product prices in descending order.
      */
     public void printFieldDescendingPrice() {
-        String info = "Значения price в порядке убывания: ";
+        String info = "Price values in descending order: ";
         ArrayList<T> productsList = new ArrayList<T>(products.values());
         Collections.sort(productsList);
         Collections.reverse(productsList);

@@ -1,6 +1,7 @@
 package src.workwithfiles;
 
 import java.util.Scanner;
+import java.util.NoSuchElementException;
 
 import src.baseabstractions.ReaderWriter;
 import src.console.CommandManager;
@@ -37,7 +38,10 @@ public class ConsoleFileManager implements ReaderWriter {
      * @return the read Integer value
      */
     public Integer readInt() {
-        Integer result = Integer.valueOf(getScanner().nextLine().trim());
+        String nextLine = getScanner().nextLine();
+        if (nextLine.equals("//"))
+            throw new NoSuchElementException("Interrupted");
+        Integer result = Integer.valueOf(nextLine.trim());
         return result;
     }
 
@@ -47,7 +51,10 @@ public class ConsoleFileManager implements ReaderWriter {
      * @return the read Long value
      */
     public Long readLong() {
-        Long result = Long.valueOf(getScanner().nextLine().trim());
+        String nextLine = getScanner().nextLine();
+        if (nextLine.equals("//"))
+            throw new NoSuchElementException("Interrupted");
+        Long result = Long.valueOf(nextLine.trim());
         return result;
     }
 
@@ -57,7 +64,10 @@ public class ConsoleFileManager implements ReaderWriter {
      * @return the read Double value
      */
     public Double readDouble() {
-        Double result = Double.valueOf(getScanner().nextLine().trim());
+        String nextLine = getScanner().nextLine();
+        if (nextLine.equals("//"))
+            throw new NoSuchElementException("Interrupted");
+        Double result = Double.valueOf(nextLine.trim());
         return result;
     }
 
@@ -67,7 +77,10 @@ public class ConsoleFileManager implements ReaderWriter {
      * @return the read line as a String, trimmed of leading/trailing whitespace
      */
     public String readLine() {
-        String result = getScanner().nextLine().trim();
+        String nextLine = getScanner().nextLine();
+        if (nextLine.equals("//"))
+            throw new NoSuchElementException("Interrupted");
+        String result = nextLine.trim();
         return result;
     }
 
@@ -90,7 +103,11 @@ public class ConsoleFileManager implements ReaderWriter {
      *                                  is incorrect
      */
     public String[] readCommandAndArgument() throws IllegalArgumentException {
-        String[] commandAndArgument = getScanner().nextLine().trim().toLowerCase().split(" ");
+        String nextLine = getScanner().nextLine();
+        if (nextLine.equals("//")) {
+            nextLine = getScanner().nextLine();
+        }
+        String[] commandAndArgument = nextLine.trim().toLowerCase().split(" ");
         String command = commandAndArgument[0].trim();
         if (CommandManager.getCommands().containsKey(command)) {
             if (command.equals("insert") || command.equals("update")
