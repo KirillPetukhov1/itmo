@@ -6,7 +6,9 @@ import kotlinx.serialization.Serializable
 open class Coordinates() {
     var x: Long = 0L
         set(value) {
-            if (value > 321) throw IllegalArgumentException("x must be greater than 321")
+            if (value > 321) {
+                throw IllegalArgumentException("x must be greater than 321")
+            }
             field = value
         }
 

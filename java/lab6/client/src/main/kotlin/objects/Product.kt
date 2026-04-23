@@ -9,7 +9,9 @@ open class Product {
 
     var name: String = ""
         set(value: String) {
-            if (value.isEmpty()) throw IllegalArgumentException("Name can't be empty")
+            if (value.isEmpty()) {
+                throw IllegalArgumentException("Name can't be empty")
+            }
             field = value.trim()
         }
 
@@ -19,7 +21,9 @@ open class Product {
 
     var price: Long = 0
         set(value: Long) {
-            if (value <= 0) throw IllegalArgumentException("Price can't be less than zero")
+            if (value <= 0) {
+                throw IllegalArgumentException("Price can't be less than zero")
+            }
             field = value
         }
 

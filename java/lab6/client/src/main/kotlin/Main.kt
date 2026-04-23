@@ -1,9 +1,15 @@
-import objects.Coordinates
+abstract class A<out T>
 
-fun main() {
-    var a = Coordinates()
+open class C
 
-    a.x = 320
+class D : C()
 
-    println(a.x.toString() + " " + a.y.toString())
+class B<T : C> : A<T>()
+
+fun main(args: Array<String>) {
+    var a: A<C>
+
+    a = B<D>()
+
+//    println(a)
 }
