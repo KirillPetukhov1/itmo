@@ -1,15 +1,33 @@
-abstract class A<out T>
+import console.CommandManager
+import connection.TcpClient
+import console.ConsoleReaderWriter
 
-open class C
+private const val DEFAULT_HOST = "localhost"
+private const val DEFAULT_PORT = 6733
+private const val ENV_HOST = "LAB6_HOST"
+private const val ENV_PORT = "LAB6_PORT"
 
-class D : C()
+/**
+ * Application entry point for the client module.
+ *
+ * Reads the server host from the [ENV_HOST] environment variable (default [DEFAULT_HOST]).
+ * Reads the server port from the [ENV_PORT] environment variable (default [DEFAULT_PORT]).
+ * Starts the interactive command loop and handles graceful shutdown on EOF.
+ */
+fun main() {
+    val host = System.getenv(ENV_HOST) ?: DEFAULT_HOST
+    val port = System.getenv(ENV_PORT)?.toIntOrNull() ?: DEFAULT_PORT
 
-class B<T : C> : A<T>()
+    val readerWriter = ConsoleReaderWriter()
+    val tcpClient = TcpClient(host, port)
+    val commandManager = CommandManager(tcpClient, readerWriter)
 
-fun main(args: Array<String>) {
-    var a: A<C>
+    readerWriter.write("Connected to server at $host:$port")
+    readerWriter.write("Type 'help' to see available commands.")
 
-    a = B<D>()
-
-//    println(a)
+    try {
+        commandManager.run()
+    } catch (e: Exception) {
+        readerWriter.write("Unexpected error: ${e.message}")
+    }
 }

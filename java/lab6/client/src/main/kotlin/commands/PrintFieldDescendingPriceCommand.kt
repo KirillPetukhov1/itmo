@@ -3,10 +3,17 @@ package commands
 import abstractions.Command
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
-import objects.Product
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.jsonArray
+import kotlinx.serialization.json.jsonObject
+import kotlinx.serialization.json.jsonPrimitive
 
+/**
+ * Displays all product price values in descending order.
+ */
 @Serializable
-class PrintFieldDescendingPriceCommand<K : Comparable<K>, V : Product> : Command<K, V>() {
+class PrintFieldDescendingPriceCommand : Command() {
+
     @Transient
     override val description =
         "print_field_descending_price : вывести значения поля price всех элементов в порядке убывания"
@@ -14,18 +21,24 @@ class PrintFieldDescendingPriceCommand<K : Comparable<K>, V : Product> : Command
     @Transient
     override val isShouldBeSent = true
 
-    private var prices: Array<Long> = arrayOf()
+    private var prices: List<Long> = emptyList()
 
     override fun start(args: Array<String>) {
-        if (args.size != 1) {
-            throw IllegalArgumentException("Number of arguments is wrong.")
-        }
+        require(args.size == 1) { "print_field_descending_price takes no arguments" }
+    }
+
+    /**
+     * Reads the price list from the server response.
+     *
+     * @param responseJson the serialised result from the server
+     */
+    fun applyResult(responseJson: String) {
+        prices = Json.parseToJsonElement(responseJson).jsonObject["prices"]
+            ?.jsonArray?.mapNotNull { it.jsonPrimitive.content.toLongOrNull() } ?: emptyList()
     }
 
     override fun finish() {
-        println("Price values in descending order: ")
-        for (price in prices) {
-            println(price)
-        }
+        println("Price values in descending order:")
+        prices.forEach(::println)
     }
 }

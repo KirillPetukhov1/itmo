@@ -3,10 +3,16 @@ package commands
 import abstractions.Command
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
-import objects.Product
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.jsonObject
+import kotlinx.serialization.json.jsonPrimitive
 
+/**
+ * Requests collection metadata from the server and displays it.
+ */
 @Serializable
-class InfoCommand<K : Comparable<K>, V : Product> : Command<K, V>() {
+class InfoCommand : Command() {
+
     @Transient
     override val description =
         "info : вывести в стандартный поток вывода информацию о коллекции (тип, дата инициализации, количество элементов и т.д.)"
@@ -14,15 +20,20 @@ class InfoCommand<K : Comparable<K>, V : Product> : Command<K, V>() {
     @Transient
     override val isShouldBeSent = true
 
-    private var info = ""
+    var info: String = ""
 
     override fun start(args: Array<String>) {
-        if (args.size != 1) {
-            throw IllegalArgumentException("Number of arguments is wrong.")
-        }
+        require(args.size == 1) { "info takes no arguments" }
     }
 
-    override fun finish() {
-        println(info)
+    /**
+     * Populates [info] from a server response JSON object with an "info" field.
+     *
+     * @param responseJson the serialised result returned by the server
+     */
+    fun applyResult(responseJson: String) {
+        info = Json.parseToJsonElement(responseJson).jsonObject["info"]?.jsonPrimitive?.content ?: ""
     }
+
+    override fun finish() = println(info)
 }

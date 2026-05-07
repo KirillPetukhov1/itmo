@@ -1,15 +1,19 @@
 package commands
 
 import abstractions.Command
-import abstractions.KeyParse
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
-import objects.Product
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.buildJsonObject
+import kotlinx.serialization.json.jsonObject
+import kotlinx.serialization.json.jsonPrimitive
+import kotlinx.serialization.json.put
 
+/**
+ * Removes all elements whose key is lexicographically greater than the given key.
+ */
 @Serializable
-class RemoveGreaterKeyCommand<K : Comparable<K>, V : Product>(
-    @Transient private val keyParser: KeyParse<K>? = null
-) : Command<K, V>() {
+class RemoveGreaterKeyCommand : Command() {
 
     @Transient
     override val description =
@@ -18,22 +22,35 @@ class RemoveGreaterKeyCommand<K : Comparable<K>, V : Product>(
     @Transient
     override val isShouldBeSent = true
 
-    private var key: K? = null
+    var key: String = ""
 
-    private var isCollectionUpdated = false
+    @Transient
+    private var removedCount = 0
 
     override fun start(args: Array<String>) {
-        if (args.size != 2) {
-            throw IllegalArgumentException("Number of arguments is wrong.")
-        }
-        key = keyParser?.getParsedObject(args[1])
+        require(args.size == 2) { "Usage: remove_greater_key <key>" }
+        key = args[1]
+    }
+
+    /**
+     * Serializes [key] into the payload expected by the server.
+     *
+     * @return JSON string with the key field
+     */
+    fun toPayload(): String = buildJsonObject { put("key", key) }.toString()
+
+    /**
+     * Reads the count of removed elements from the server response.
+     *
+     * @param responseJson the serialised result from the server
+     */
+    fun applyResult(responseJson: String) {
+        removedCount = Json.parseToJsonElement(responseJson).jsonObject["removedCount"]
+            ?.jsonPrimitive?.content?.toIntOrNull() ?: 0
     }
 
     override fun finish() {
-        if (isCollectionUpdated) {
-            println("The collection has been successfully updated.")
-        } else {
-            println("The collection has not changed, no matching keys have been found.")
-        }
+        if (removedCount > 0) println("The collection has been successfully updated. Removed: $removedCount elements.")
+        else println("The collection has not changed, no matching keys have been found.")
     }
 }

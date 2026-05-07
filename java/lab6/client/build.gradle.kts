@@ -1,6 +1,7 @@
 plugins {
     kotlin("jvm")
     kotlin("plugin.serialization")
+    application
 }
 
 group = "org.example"
@@ -11,13 +12,17 @@ repositories {
 }
 
 dependencies {
+    implementation(project(":shared"))
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3")
     testImplementation(kotlin("test"))
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.11.0")
-    implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.7.1")
 }
 
 kotlin {
-    jvmToolchain(25)
+    jvmToolchain(21)
+}
+
+application {
+    mainClass.set("MainKt")
 }
 
 tasks.test {
