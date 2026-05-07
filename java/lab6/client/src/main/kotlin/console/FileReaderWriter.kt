@@ -8,12 +8,12 @@ import java.io.BufferedReader
  *
  * In script mode two kinds of lines are distinguished:
  *
- * Field value lines - start with the '>' character. The leading '>' is stripped before
+ * Field value lines — start with the '>' character. The leading '>' is stripped before
  * the value is returned to the caller. These lines supply field values to object-building
  * forms such as [ProductConsoleForm].
  *
- * Command lines - any line that does NOT start with '>'. These are dispatched by
- * [CommandManager] as ordinary commands.
+ * Command lines — any line that does NOT start with '>'. These are dispatched by
+ * [commands.CommandManager] as ordinary commands.
  *
  * When a form calls [readLine] to obtain the next field value and the next available line
  * is a command line (no leading '>'), [CommandInterruptedException] is thrown carrying
@@ -45,7 +45,9 @@ class FileReaderWriter(private val reader: BufferedReader) : AbstractReaderWrite
         }
     }
 
-    override fun write(text: String) = println(text)
+    override fun writeRequest(text: String) = Unit
+
+    override fun writeError(text: String) = println(text)
 
     /**
      * Returns the next command line, consuming the lookahead buffer first if non-empty.

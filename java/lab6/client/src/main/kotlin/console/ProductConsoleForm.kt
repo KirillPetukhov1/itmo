@@ -1,26 +1,35 @@
 package console
 
 import abstractions.AbstractReaderWriter
+import abstractions.EofException
 import objectCreation.PersonBuilder
 import objectCreation.ProductBuilder
 import objects.Color
 import objects.Coordinates
 import objects.Country
-import objects.UnitOfMeasure
 import objects.Product
+import objects.UnitOfMeasure
 
 /**
  * Interactive form that reads all fields of a [Product] from an [AbstractReaderWriter].
- * Each field is read in a retry loop: the user is re-prompted on any validation error.
+ * Each field is read in a retry loop.
  *
- * @property readerWriter the I/O channel to use for prompts and input
+ * Field invitations are sent via [AbstractReaderWriter.writeRequest] and are suppressed
+ * in script mode. Validation error messages are sent via [AbstractReaderWriter.writeError]
+ * and are always shown.
+ *
+ * If the input stream ends (EOF or Ctrl+D) while a field is being read, [EofException]
+ * is thrown so the caller can perform a graceful shutdown.
+ *
+ * @property readerWriter the I/O channel to use for requests, errors, and input
  */
 class ProductConsoleForm(private val readerWriter: AbstractReaderWriter) {
 
     /**
-     * Reads all product fields interactively and returns a fully populated [Product].
+     * Reads all product fields and returns a fully populated [Product].
      *
      * @return the constructed product (without server-assigned id and creationDate)
+     * @throws EofException if EOF is reached before all fields are supplied
      */
     fun readProduct(): Product {
         val builder = ProductBuilder()
@@ -34,80 +43,87 @@ class ProductConsoleForm(private val readerWriter: AbstractReaderWriter) {
         return builder.build()
     }
 
+    private fun nextLine(): String =
+        readerWriter.readLine() ?: throw EofException()
+
     private fun readName(): String {
         while (true) {
-            readerWriter.write("Enter product name:")
-            val input = readerWriter.readLine().trim()
+            readerWriter.writeRequest("Enter product name:")
+            val input = nextLine().trim()
             if (input.isNotBlank()) return input
-            readerWriter.write("Name must not be blank. Try again.")
+            readerWriter.writeError("Name must not be blank. Try again.")
         }
     }
 
     private fun readCoordinates(): Coordinates {
         while (true) {
             try {
-                readerWriter.write("Enter X coordinate (max 321):")
-                val x = readerWriter.readLine().trim().toLong()
-                readerWriter.write("Enter Y coordinate:")
-                val y = readerWriter.readLine().trim().toDouble()
+                readerWriter.writeRequest("Enter X coordinate (max 321):")
+                val x = nextLine().trim().toLong()
+                readerWriter.writeRequest("Enter Y coordinate:")
+                val y = nextLine().trim().toDouble()
                 return Coordinates(x, y)
+            } catch (e: EofException) {
+                throw e
             } catch (e: NumberFormatException) {
-                readerWriter.write("Invalid number: ${e.message}. Try again.")
+                readerWriter.writeError("Invalid number: ${e.message}. Try again.")
             } catch (e: IllegalArgumentException) {
-                readerWriter.write("${e.message}. Try again.")
+                readerWriter.writeError("${e.message}. Try again.")
             }
         }
     }
 
     private fun readPrice(): Long {
         while (true) {
-            readerWriter.write("Enter price (must be > 0):")
+            readerWriter.writeRequest("Enter price (must be > 0):")
             try {
-                val price = readerWriter.readLine().trim().toLong()
+                val price = nextLine().trim().toLong()
                 require(price > 0) { "Price must be greater than 0" }
                 return price
+            } catch (e: EofException) {
+                throw e
             } catch (e: NumberFormatException) {
-                readerWriter.write("Invalid number. Try again.")
+                readerWriter.writeError("Invalid number. Try again.")
             } catch (e: IllegalArgumentException) {
-                readerWriter.write("${e.message}. Try again.")
+                readerWriter.writeError("${e.message}. Try again.")
             }
         }
     }
 
     private fun readPartNumber(): String? {
-        readerWriter.write("Enter part number (leave blank for null):")
-        val input = readerWriter.readLine().trim()
+        readerWriter.writeRequest("Enter part number (leave blank for null):")
+        val input = nextLine().trim()
         return input.takeIf { it.isNotBlank() }
     }
 
     private fun readManufactureCost(): Long? {
-        readerWriter.write("Enter manufacture cost (leave blank for null):")
-        val input = readerWriter.readLine().trim()
+        readerWriter.writeRequest("Enter manufacture cost (leave blank for null):")
+        val input = nextLine().trim()
         if (input.isBlank()) return null
-        while (true) {
-            try {
-                return input.toLong()
-            } catch (e: NumberFormatException) {
-                readerWriter.write("Invalid number. Try again.")
-                val retry = readerWriter.readLine().trim()
-                if (retry.isBlank()) return null
-                try { return retry.toLong() } catch (_: NumberFormatException) {
-                    readerWriter.write("Invalid number. Skipping field.")
-                    return null
-                }
+        try {
+            return input.toLong()
+        } catch (e: NumberFormatException) {
+            readerWriter.writeError("Invalid number. Try again.")
+            val retry = nextLine().trim()
+            if (retry.isBlank()) return null
+            return try {
+                retry.toLong()
+            } catch (_: NumberFormatException) {
+                readerWriter.writeError("Invalid number. Skipping field.")
+                null
             }
         }
     }
 
     private fun readUnitOfMeasure(): UnitOfMeasure? {
-        readerWriter.write("Enter unit of measure (leave blank for null): ${UnitOfMeasure.entries}")
+        readerWriter.writeRequest("Enter unit of measure (leave blank for null): ${UnitOfMeasure.entries}")
         while (true) {
-            val input = readerWriter.readLine().trim()
+            val input = nextLine().trim()
             if (input.isBlank()) return null
             try {
                 return UnitOfMeasure.valueOf(input.uppercase())
             } catch (e: IllegalArgumentException) {
-                readerWriter.write("Unknown value. Valid values: ${UnitOfMeasure.entries}. Try again.")
+                readerWriter.writeError("Unknown value. Valid values: ${UnitOfMeasure.entries}. Try again.")
             }
         }
     }
@@ -123,48 +139,52 @@ class ProductConsoleForm(private val readerWriter: AbstractReaderWriter) {
 
     private fun readPersonName(): String {
         while (true) {
-            readerWriter.write("Enter owner name:")
-            val input = readerWriter.readLine().trim()
+            readerWriter.writeRequest("Enter owner name:")
+            val input = nextLine().trim()
             if (input.isNotBlank()) return input
-            readerWriter.write("Name must not be blank. Try again.")
+            readerWriter.writeError("Name must not be blank. Try again.")
         }
     }
 
     private fun readPersonHeight(): Long {
         while (true) {
-            readerWriter.write("Enter owner height (must be > 0):")
+            readerWriter.writeRequest("Enter owner height (must be > 0):")
             try {
-                val height = readerWriter.readLine().trim().toLong()
+                val height = nextLine().trim().toLong()
                 require(height > 0) { "Height must be greater than 0" }
                 return height
+            } catch (e: EofException) {
+                throw e
             } catch (e: NumberFormatException) {
-                readerWriter.write("Invalid number. Try again.")
+                readerWriter.writeError("Invalid number. Try again.")
             } catch (e: IllegalArgumentException) {
-                readerWriter.write("${e.message}. Try again.")
+                readerWriter.writeError("${e.message}. Try again.")
             }
         }
     }
 
     private fun readPersonHairColor(): Color {
-        readerWriter.write("Enter hair color: ${Color.entries}")
+        readerWriter.writeRequest("Enter hair color: ${Color.entries}")
         while (true) {
             try {
-                return Color.valueOf(readerWriter.readLine().trim().uppercase())
+                return Color.valueOf(nextLine().trim().uppercase())
+            } catch (e: EofException) {
+                throw e
             } catch (e: IllegalArgumentException) {
-                readerWriter.write("Unknown color. Valid values: ${Color.entries}. Try again.")
+                readerWriter.writeError("Unknown color. Valid values: ${Color.entries}. Try again.")
             }
         }
     }
 
     private fun readPersonNationality(): Country? {
-        readerWriter.write("Enter nationality (leave blank for null): ${Country.entries}")
+        readerWriter.writeRequest("Enter nationality (leave blank for null): ${Country.entries}")
         while (true) {
-            val input = readerWriter.readLine().trim()
+            val input = nextLine().trim()
             if (input.isBlank()) return null
             try {
                 return Country.valueOf(input.uppercase())
             } catch (e: IllegalArgumentException) {
-                readerWriter.write("Unknown country. Valid values: ${Country.entries}. Try again.")
+                readerWriter.writeError("Unknown country. Valid values: ${Country.entries}. Try again.")
             }
         }
     }
