@@ -13,20 +13,47 @@ repositories {
 
 dependencies {
     implementation(project(":shared"))
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
     implementation("com.thoughtworks.xstream:xstream:1.4.21")
     implementation("ch.qos.logback:logback-classic:1.5.6")
     testImplementation(kotlin("test"))
 }
 
 kotlin {
-    jvmToolchain(21)
+    jvmToolchain(17)
 }
 
 application {
     mainClass.set("MainKt")
+    applicationDefaultJvmArgs = listOf(
+        "-Xmx512m",
+        "-XX:MaxMetaspaceSize=256m",
+        "--add-opens", "java.base/java.util=ALL-UNNAMED",
+        "--add-opens", "java.base/java.lang=ALL-UNNAMED"
+    )
+}
+
+tasks.named<JavaExec>("run") {
+    jvmArgs = listOf(
+        "-Xmx512m",
+        "-XX:MaxMetaspaceSize=256m",
+        "--add-opens", "java.base/java.util=ALL-UNNAMED",
+        "--add-opens", "java.base/java.lang=ALL-UNNAMED"
+    )
+    environment("_JAVA_OPTIONS", "")
 }
 
 tasks.test {
     useJUnitPlatform()
+    jvmArgs = listOf("-Xmx512m", "-XX:MaxMetaspaceSize=256m")
+}
+
+tasks.register<Jar>("fatJar") {
+    archiveClassifier.set("fat")
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    manifest {
+        attributes["Main-Class"] = "MainKt"
+    }
+    from(configurations.runtimeClasspath.get().map { if (it.isDirectory) it else zipTree(it) })
+    with(tasks.jar.get())
 }

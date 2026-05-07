@@ -8,7 +8,7 @@ import abstractions.AbstractReaderWriter
  */
 class ConsoleReaderWriter : AbstractReaderWriter() {
 
-    override fun readLine(): String = readLine()
+    override fun readLine(): String = kotlin.io.readLine() ?: ""
 
     override fun write(text: String) = println(text)
 }

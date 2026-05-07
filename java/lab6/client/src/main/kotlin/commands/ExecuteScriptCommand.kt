@@ -1,7 +1,7 @@
 package commands
 
 import abstractions.Command
-import console.CommandManager
+import commands.CommandManager
 import console.FileReaderWriter
 import java.io.BufferedReader
 import java.io.File
@@ -44,7 +44,7 @@ class ExecuteScriptCommand(private val commandManager: CommandManager) : Command
         activeFiles.add(fileName)
         try {
             val fileReaderWriter = FileReaderWriter(BufferedReader(FileReader(file)))
-            commandManager.runFromFileReaderWriter(fileReaderWriter)
+            commandManager.runFromReaderWriter(fileReaderWriter)
         } finally {
             activeFiles.remove(fileName)
         }

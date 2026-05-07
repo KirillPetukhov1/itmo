@@ -1,5 +1,6 @@
 import collection.CollectionManager
 import commands.CommandExecutor
+import commands.CommandRegistry
 import connection.NetworkServer
 import files.XmlFileManager
 import objectCreation.IdManager
@@ -7,7 +8,7 @@ import org.slf4j.LoggerFactory
 
 private val logger = LoggerFactory.getLogger("ServerMain")
 
-private const val DEFAULT_PORT = 6733
+private const val DEFAULT_PORT = 8080
 private const val ENV_FILE = "LAB5_FILENAME"
 private const val ENV_PORT = "LAB6_PORT"
 private const val SERVER_SAVE_COMMAND = "server_save"
@@ -26,13 +27,13 @@ private const val SERVER_SAVE_COMMAND = "server_save"
 fun main() {
     logger.info("Server starting")
 
-    val filePath = System.getenv(ENV_FILE)
+    val filePath = System.getenv(ENV_FILE) ?: System.getProperty(ENV_FILE)
         ?: run {
             logger.error("Environment variable $ENV_FILE is not set")
             return
         }
 
-    val port = System.getenv(ENV_PORT)?.toIntOrNull() ?: DEFAULT_PORT
+    val port = (System.getenv(ENV_PORT) ?: System.getProperty(ENV_PORT))?.toIntOrNull() ?: DEFAULT_PORT
 
     val idManager = IdManager()
     val collectionManager = CollectionManager(idManager)
@@ -46,7 +47,8 @@ fun main() {
         logger.warn("Could not load collection: ${e.message}")
     }
 
-    val executor = CommandExecutor(collectionManager)
+    val registry = CommandRegistry(collectionManager)
+    val executor = CommandExecutor(registry)
     val server = NetworkServer(port, executor)
 
     Runtime.getRuntime().addShutdownHook(Thread {

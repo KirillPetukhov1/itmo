@@ -9,7 +9,7 @@ import kotlinx.serialization.Serializable
  * @property id unique identifier, generated automatically on the server, must be greater than 0
  * @property name product name, must not be blank
  * @property coordinates product coordinates, must not be null
- * @property creationDate creation date string, generated automatically on the server
+ * @property creationDate ISO-8601 creation date string, generated automatically on the server
  * @property price product price, must be greater than 0
  * @property partNumber product part number, may be null
  * @property manufactureCost manufacture cost, may be null

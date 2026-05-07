@@ -17,10 +17,10 @@ import java.nio.channels.SocketChannel
  *
  * Modules as required by the specification:
  *
- * Connection acceptance - [acceptConnection]
- * Request reading - [readRequest]
- * Command processing - [processRequest] via [CommandExecutor]
- * Response sending - [sendResponse]
+ * Connection acceptance — [acceptConnection]
+ * Request reading — [readRequest]
+ * Command processing — [processRequest] via [CommandExecutor]
+ * Response sending — [sendResponse]
  *
  * @property port the TCP port to listen on
  * @property executor the command executor that handles business logic
