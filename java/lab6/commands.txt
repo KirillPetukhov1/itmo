@@ -1,0 +1,8 @@
+export LAB5_FILENAME=/prog_java/lab6/collection.xml
+export LAB6_PORT=6733
+./gradlew :server:run
+
+
+export LAB6_HOST=localhost
+export LAB6_PORT=6733
+./gradlew :client:run
