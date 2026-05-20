@@ -29,3 +29,19 @@ jar -c -f lab5.jar -m MANIFEST.MF -C out/ .
 export LAB5_FILENAME=products.xml
 
 java -jar lab5.jar
+
+
+unset _JAVA_OPTIONS
+
+ps -ef | grep java
+
+kill -9 <PID>
+
+
+
+./gradlew :server:fatJar :client:fatJar --no-daemon
+
+scp -P 2222 -r "client\build\libs\client-1.0-SNAPSHOT-fat.jar" "server\build\libs\server-1.0-SNAPSHOT-fat.jar" s501755@helios.se.ifmo.ru:~/prog_java/lab6
+
+
+execute_script scripts/test1.txt

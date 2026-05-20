@@ -45,7 +45,7 @@ class UpdateCommand(@Transient private val form: ProductConsoleForm? = null) : C
      */
     fun toPayload(): String = buildJsonObject {
         put("id", id)
-        put("product", Json.encodeToString(product))
+        put("product", Json.parseToJsonElement(Json.encodeToString(product)))
     }.toString()
 
     /**

@@ -42,7 +42,7 @@ class RemoveLowerCommand(@Transient private val form: ProductConsoleForm? = null
      * @return JSON string with the product field
      */
     fun toPayload(): String = buildJsonObject {
-        put("product", Json.encodeToString(product))
+        put("product", Json.parseToJsonElement(Json.encodeToString(product)))
     }.toString()
 
     /**

@@ -46,7 +46,7 @@ class ReplaceIfGreaterCommand(@Transient private val form: ProductConsoleForm? =
      */
     fun toPayload(): String = buildJsonObject {
         put("key", key)
-        put("product", Json.encodeToString(product))
+        put("product", Json.parseToJsonElement(Json.encodeToString(product)))
     }.toString()
 
     /**

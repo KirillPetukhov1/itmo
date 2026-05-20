@@ -1,0 +1,13 @@
+insert chain_key
+> Chained Product
+> 77
+> 7.7
+> 777
+> CH-007
+>
+> GRAMS
+> Chain Person
+> 177
+> BLUE
+> SPAIN
+show

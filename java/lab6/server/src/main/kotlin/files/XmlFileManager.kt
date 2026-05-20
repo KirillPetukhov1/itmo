@@ -17,6 +17,9 @@ import java.util.Hashtable
  * Read operations use [InputStreamReader], write operations use [OutputStreamWriter],
  * both with UTF-8 encoding, as required by the specification.
  *
+ * If the file does not exist when [load] is called, it is created immediately
+ * with an empty collection so subsequent saves always have a writable target.
+ *
  * @property filePath absolute or relative path to the XML file
  */
 class XmlFileManager(private val filePath: String) {
@@ -46,15 +49,21 @@ class XmlFileManager(private val filePath: String) {
 
     /**
      * Loads the collection from the XML file.
-     * Returns an empty [Hashtable] when the file does not exist or contains invalid XML.
+     * If the file does not exist, it is created with an empty collection and an empty
+     * [Hashtable] is returned. If the file exists but contains invalid XML, an empty
+     * [Hashtable] is returned without modifying the file.
      *
-     * @return the loaded collection, or an empty [Hashtable] on any recoverable error
+     * @return the loaded collection, or an empty [Hashtable] when the file is absent or unreadable
      * @throws IllegalStateException if the file exists but cannot be read
      */
     @Suppress("UNCHECKED_CAST")
     fun load(): Hashtable<String, Product> {
         val file = File(filePath)
-        if (!file.exists()) return Hashtable()
+        if (!file.exists()) {
+            file.parentFile?.mkdirs()
+            save(Hashtable())
+            return Hashtable()
+        }
         if (!file.canRead()) {
             throw IllegalStateException("No read permission for file: $filePath")
         }

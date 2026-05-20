@@ -25,6 +25,8 @@ fun main() {
     readerWriter.write("Connected to server at $host:$port")
     readerWriter.write("Type 'help' to see available commands.")
 
+    println("v1")
+
     try {
         commandManager.run()
     } catch (e: Exception) {

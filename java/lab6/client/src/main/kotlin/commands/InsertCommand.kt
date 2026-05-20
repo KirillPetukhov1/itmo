@@ -42,7 +42,7 @@ class InsertCommand(@Transient private val form: ProductConsoleForm? = null) : C
      */
     fun toPayload(): String = buildJsonObject {
         put("key", key)
-        put("product", Json.encodeToString(product))
+        put("product", Json.parseToJsonElement(Json.encodeToString(product)))
     }.toString()
 
     /**

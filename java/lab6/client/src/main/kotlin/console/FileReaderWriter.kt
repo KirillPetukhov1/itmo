@@ -45,7 +45,9 @@ class FileReaderWriter(private val reader: BufferedReader) : AbstractReaderWrite
         }
     }
 
-    override fun write(text: String) = println(text)
+    override fun writeRequest(text: String) = Unit
+
+    override fun writeError(text: String) = println(text)
 
     /**
      * Returns the next command line, consuming the lookahead buffer first if non-empty.
