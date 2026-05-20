@@ -18,7 +18,7 @@ import java.io.BufferedReader
  * When a form calls [readLine] to obtain the next field value and the next available line
  * is a command line (no leading '>'), [CommandInterruptedException] is thrown carrying
  * that command line. The command line is placed into an internal lookahead buffer so
- * [CommandManager] can read it on the next iteration via [readCommandLine].
+ * [commands.CommandManager] can read it on the next iteration via [readCommandLine].
  *
  * @property reader the source of script lines
  */
