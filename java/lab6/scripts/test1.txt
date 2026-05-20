@@ -1,0 +1,29 @@
+insert key1
+> Laptop Pro
+> 100
+> 25.5
+> 1500
+> LP-001
+> 800
+> GRAMS
+> Alice
+> 170
+> BLACK
+> JAPAN
+insert key2
+> Wireless Mouse
+> 50
+> 10.0
+> 299
+> WM-002
+> 150
+> MILLILITERS
+> Bob
+> 180
+> BLUE
+> SPAIN
+show
+info
+count_greater_than_price 500
+print_unique_unit_of_measure
+print_field_descending_price

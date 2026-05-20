@@ -1,0 +1,7 @@
+foobar
+update notanumber
+remove_key
+count_greater_than_price
+count_greater_than_price abc
+show
+help

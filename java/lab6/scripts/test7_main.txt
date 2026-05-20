@@ -1,0 +1,5 @@
+info
+execute_script scripts/test7_subscript.txt
+show
+execute_script scripts/test7_main.txt
+show

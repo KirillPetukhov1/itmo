@@ -1,0 +1,2 @@
+2026-05-07 16:42:56.367 [main] INFO  ServerMain - Server starting
+2026-05-07 16:42:56.373 [main] ERROR ServerMain - Environment variable LAB5_FILENAME is not set
