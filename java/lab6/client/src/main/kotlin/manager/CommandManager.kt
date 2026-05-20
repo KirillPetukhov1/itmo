@@ -1,6 +1,7 @@
-package commands
+package manager
 
 import abstractions.AbstractReaderWriter
+import commands.*
 import abstractions.Command
 import abstractions.EofException
 import connection.Request

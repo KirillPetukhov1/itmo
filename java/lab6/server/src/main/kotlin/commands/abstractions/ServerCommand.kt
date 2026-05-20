@@ -1,4 +1,4 @@
-package commands
+package commands.abstractions
 
 import connection.Response
 
@@ -9,7 +9,8 @@ import connection.Response
  * it parses its own arguments from the serialized payload received in the [connection.Request],
  * carries out the operation via [collection.CollectionManager], and returns a [Response].
  *
- * Implementations are instantiated per request by factories registered in [CommandRegistry].
+ * Implementations are instantiated per request by factories registered in
+ * [commands.CommandRegistry].
  */
 interface ServerCommand {
 

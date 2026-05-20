@@ -1,6 +1,8 @@
-package commands
+package commands.implementations
 
 import collection.CollectionManager
+import commands.abstractions.ServerCommand
+import commands.listResponse
 import connection.Response
 
 /**

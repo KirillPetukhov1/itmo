@@ -17,7 +17,6 @@ internal val sharedJson = Json { ignoreUnknownKeys = true }
  * Parses the top-level JSON object from [payload].
  *
  * @return the parsed [kotlinx.serialization.json.JsonObject]
- * @throws kotlinx.serialization.json.JsonDecodingException on malformed input
  */
 internal fun parsePayload(payload: String) = Json.parseToJsonElement(payload).jsonObject
 
@@ -40,7 +39,7 @@ internal fun requireLong(payload: String, key: String): Long =
         ?: throw IllegalArgumentException("Field '$key' is missing from payload")
 
 /**
- * Deserializes a [Product] from the nested JSON string stored under [key] in the payload.
+ * Deserializes a [Product] from the nested JSON object stored under [key] in the payload.
  *
  * @throws IllegalArgumentException if the product field is absent
  */
@@ -57,27 +56,17 @@ internal fun successResponse(commandName: String, fieldName: String): Response =
     Response(commandName, buildJsonObject { put(fieldName, true) }.toString())
 
 /**
- * Builds an error [Response] with [message].
- */
-internal fun errorResponse(commandName: String, message: String): Response =
-    Response(commandName, "{}", message)
-
-/**
  * Builds a [Response] whose payload is a JSON array of strings under [arrayKey].
  */
-internal fun listResponse(commandName: String, arrayKey: String, items: List<String>): Response {
-    val result = buildJsonObject {
+internal fun listResponse(commandName: String, arrayKey: String, items: List<String>): Response =
+    Response(commandName, buildJsonObject {
         putJsonArray(arrayKey) { items.forEach { add(JsonPrimitive(it)) } }
-    }
-    return Response(commandName, result.toString())
-}
+    }.toString())
 
 /**
  * Builds a [Response] whose payload is a JSON array of longs under [arrayKey].
  */
-internal fun longListResponse(commandName: String, arrayKey: String, items: List<Long>): Response {
-    val result = buildJsonObject {
+internal fun longListResponse(commandName: String, arrayKey: String, items: List<Long>): Response =
+    Response(commandName, buildJsonObject {
         putJsonArray(arrayKey) { items.forEach { add(JsonPrimitive(it)) } }
-    }
-    return Response(commandName, result.toString())
-}
+    }.toString())

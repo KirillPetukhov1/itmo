@@ -1,6 +1,7 @@
-package commands
+package commands.implementations
 
 import collection.CollectionManager
+import commands.abstractions.ServerCommand
 import connection.Response
 import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.put
@@ -12,8 +13,6 @@ import kotlinx.serialization.json.put
  */
 class InfoServerCommand(private val collectionManager: CollectionManager) : ServerCommand {
 
-    override fun execute(): Response {
-        val info = collectionManager.info()
-        return Response("info", buildJsonObject { put("info", info) }.toString())
-    }
+    override fun execute(): Response =
+        Response("info", buildJsonObject { put("info", collectionManager.info()) }.toString())
 }

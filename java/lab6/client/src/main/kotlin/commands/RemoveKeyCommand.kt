@@ -16,7 +16,7 @@ import kotlinx.serialization.json.put
 class RemoveKeyCommand : Command() {
 
     @Transient
-    override val description = "remove_key null : удалить элемент из коллекции по его ключу"
+    override val description = "remove_key null : ??????? ??????? ?? ????????? ?? ??? ?????"
 
     @Transient
     override val isShouldBeSent = true

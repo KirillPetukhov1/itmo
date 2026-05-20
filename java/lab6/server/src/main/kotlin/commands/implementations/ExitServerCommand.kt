@@ -1,5 +1,6 @@
-package commands
+package commands.implementations
 
+import commands.abstractions.ServerCommand
 import connection.Response
 import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.put

@@ -1,7 +1,8 @@
 import collection.CollectionManager
 import commands.CommandExecutor
 import commands.CommandRegistry
-import connection.NetworkServer
+import connection.EventLoop
+import connection.RequestProcessor
 import files.XmlFileManager
 import objectCreation.IdManager
 import org.slf4j.LoggerFactory
@@ -18,11 +19,9 @@ private const val SERVER_SAVE_COMMAND = "server_save"
  *
  * Reads the collection file path from the [ENV_FILE] environment variable.
  * Reads the TCP port from the [ENV_PORT] environment variable (default [DEFAULT_PORT]).
- * Loads the collection from XML, starts the non-blocking TCP server, and registers
- * a shutdown hook that saves the collection before exit.
- *
- * The special console command [SERVER_SAVE_COMMAND] (typed directly in the server terminal)
- * triggers an immediate save without stopping the server.
+ * Wires all modules together, starts the [EventLoop] in a daemon thread, and enters
+ * the administrator console loop in the main thread.
+ * A shutdown hook saves the collection before the JVM exits.
  */
 fun main() {
     logger.info("Server starting")
@@ -35,8 +34,7 @@ fun main() {
 
     val port = (System.getenv(ENV_PORT) ?: System.getProperty(ENV_PORT))?.toIntOrNull() ?: DEFAULT_PORT
 
-    val idManager = IdManager()
-    val collectionManager = CollectionManager(idManager)
+    val collectionManager = CollectionManager(IdManager())
     val fileManager = XmlFileManager(filePath)
 
     try {
@@ -47,28 +45,21 @@ fun main() {
         logger.warn("Could not load collection: ${e.message}")
     }
 
-    val registry = CommandRegistry(collectionManager)
-    val executor = CommandExecutor(registry)
-    val server = NetworkServer(port, executor)
+    val executor = CommandExecutor(CommandRegistry(collectionManager))
+    val processor = RequestProcessor(executor)
+    val eventLoop = EventLoop(port, processor)
 
     Runtime.getRuntime().addShutdownHook(Thread {
-        logger.info("Shutdown hook triggered — saving collection")
+        logger.info("Shutdown hook triggered -- saving collection")
         saveCollection(fileManager, collectionManager, filePath)
-        server.stop()
+        eventLoop.stop()
     })
 
-    val serverThread = Thread({
-        try {
-            server.start()
-        } catch (e: Exception) {
-            logger.error("Server error: ${e.message}")
-        }
-    }, "server-thread")
-    serverThread.isDaemon = true
-    serverThread.start()
+    val loopThread = Thread({ eventLoop.start() }, "event-loop")
+    loopThread.isDaemon = true
+    loopThread.start()
 
-    logger.info("Type '$SERVER_SAVE_COMMAND' to save the collection manually, 'exit' to stop the server")
-
+    logger.info("Type '$SERVER_SAVE_COMMAND' to save, 'exit' to stop")
     val stdin = System.`in`.bufferedReader()
     while (true) {
         val line = stdin.readLine()?.trim() ?: break
@@ -80,7 +71,7 @@ fun main() {
             "exit" -> {
                 logger.info("Server exit command received")
                 saveCollection(fileManager, collectionManager, filePath)
-                server.stop()
+                eventLoop.stop()
                 break
             }
             else -> logger.warn("Unknown server command: $line")
@@ -90,7 +81,6 @@ fun main() {
 
 /**
  * Saves the collection to [filePath] via [fileManager].
- * Logs success or any error encountered during save.
  *
  * @param fileManager the XML file manager
  * @param collectionManager the collection to persist

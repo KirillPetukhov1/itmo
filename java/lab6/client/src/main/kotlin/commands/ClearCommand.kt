@@ -11,7 +11,7 @@ import kotlinx.serialization.Transient
 class ClearCommand : Command() {
 
     @Transient
-    override val description = "clear : очистить коллекцию"
+    override val description = "clear : ???????? ?????????"
 
     @Transient
     override val isShouldBeSent = true

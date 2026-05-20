@@ -33,13 +33,18 @@ class XmlFileManager(private val filePath: String) {
 
     /**
      * Saves [products] to the XML file, overwriting any previous content.
+     * Creates the file and any missing parent directories if they do not exist.
      *
      * @param products the collection to persist
      * @throws IllegalStateException if the file cannot be written
      */
     fun save(products: Hashtable<String, Product>) {
         val file = File(filePath)
-        if (file.exists() && !file.canWrite()) {
+        file.parentFile?.mkdirs()
+        if (!file.exists()) {
+            file.createNewFile()
+        }
+        if (!file.canWrite()) {
             throw IllegalStateException("No write permission for file: $filePath")
         }
         OutputStreamWriter(FileOutputStream(file), Charsets.UTF_8).use { writer ->
@@ -60,7 +65,6 @@ class XmlFileManager(private val filePath: String) {
     fun load(): Hashtable<String, Product> {
         val file = File(filePath)
         if (!file.exists()) {
-            file.parentFile?.mkdirs()
             save(Hashtable())
             return Hashtable()
         }

@@ -1,6 +1,10 @@
-package commands
+package commands.implementations
 
 import collection.CollectionManager
+import commands.abstractions.ServerCommand
+import commands.requireProduct
+import commands.requireString
+import commands.successResponse
 import connection.Response
 
 /**

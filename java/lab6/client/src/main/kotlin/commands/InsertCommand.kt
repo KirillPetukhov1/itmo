@@ -21,7 +21,7 @@ import objects.Product
 class InsertCommand(@Transient private val form: ProductConsoleForm? = null) : Command() {
 
     @Transient
-    override val description = "insert null {element} : добавить новый элемент с заданным ключом"
+    override val description = "insert null {element} : ???????? ????? ??????? ? ???????? ??????"
 
     @Transient
     override val isShouldBeSent = true

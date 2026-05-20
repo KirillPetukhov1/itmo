@@ -1,4 +1,4 @@
-import commands.CommandManager
+import manager.CommandManager
 import connection.TcpClient
 import console.ConsoleReaderWriter
 
@@ -24,8 +24,6 @@ fun main() {
 
     readerWriter.write("Connected to server at $host:$port")
     readerWriter.write("Type 'help' to see available commands.")
-
-    println("v1")
 
     try {
         commandManager.run()

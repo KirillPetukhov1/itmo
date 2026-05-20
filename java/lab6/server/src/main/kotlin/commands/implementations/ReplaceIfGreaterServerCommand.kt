@@ -1,6 +1,9 @@
-package commands
+package commands.implementations
 
 import collection.CollectionManager
+import commands.abstractions.ServerCommand
+import commands.requireProduct
+import commands.requireString
 import connection.Response
 import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.put

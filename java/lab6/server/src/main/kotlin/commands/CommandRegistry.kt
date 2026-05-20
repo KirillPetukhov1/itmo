@@ -1,57 +1,59 @@
 package commands
 
 import collection.CollectionManager
+import commands.abstractions.CommandFactory
+import commands.abstractions.ServerCommand
+import commands.implementations.*
 
 /**
- * Registry that maps command name strings to factory functions.
- * Each factory receives the raw serialized payload string from the [connection.Request]
- * and produces a ready-to-execute [ServerCommand] instance.
+ * Registry that maps command name strings to [CommandFactory] instances.
+ * Each factory is responsible for creating one type of [ServerCommand].
  *
  * New commands are registered via [register] and looked up via [create].
+ * Open for extension (new register calls), closed for modification -- OCP.
  *
  * @property collectionManager the collection passed to every command factory
  */
 class CommandRegistry(private val collectionManager: CollectionManager) {
 
-    private val factories: MutableMap<String, (String) -> ServerCommand> = mutableMapOf()
+    private val factories: MutableMap<String, CommandFactory> = mutableMapOf()
 
     init {
-        register("info") { InfoServerCommand(collectionManager) }
-        register("show") { ShowServerCommand(collectionManager) }
-        register("insert") { payload -> InsertServerCommand(collectionManager, payload) }
-        register("update") { payload -> UpdateServerCommand(collectionManager, payload) }
-        register("remove_key") { payload -> RemoveKeyServerCommand(collectionManager, payload) }
-        register("clear") { ClearServerCommand(collectionManager) }
-        register("exit") { ExitServerCommand() }
-        register("remove_lower") { payload -> RemoveLowerServerCommand(collectionManager, payload) }
-        register("replace_if_greater") { payload -> ReplaceIfGreaterServerCommand(collectionManager, payload) }
-        register("remove_greater_key") { payload -> RemoveGreaterKeyServerCommand(collectionManager, payload) }
-        register("count_greater_than_price") { payload -> CountGreaterThanPriceServerCommand(collectionManager, payload) }
-        register("print_unique_unit_of_measure") { PrintUniqueUnitOfMeasureServerCommand(collectionManager) }
-        register("print_field_descending_price") { PrintFieldDescendingPriceServerCommand(collectionManager) }
+        register("info",                       CommandFactory { InfoServerCommand(collectionManager) })
+        register("show",                       CommandFactory { ShowServerCommand(collectionManager) })
+        register("insert",                     CommandFactory { InsertServerCommand(collectionManager, it) })
+        register("update",                     CommandFactory { UpdateServerCommand(collectionManager, it) })
+        register("remove_key",                 CommandFactory { RemoveKeyServerCommand(collectionManager, it) })
+        register("clear",                      CommandFactory { ClearServerCommand(collectionManager) })
+        register("exit",                       CommandFactory { ExitServerCommand() })
+        register("remove_lower",               CommandFactory { RemoveLowerServerCommand(collectionManager, it) })
+        register("replace_if_greater",         CommandFactory { ReplaceIfGreaterServerCommand(collectionManager, it) })
+        register("remove_greater_key",         CommandFactory { RemoveGreaterKeyServerCommand(collectionManager, it) })
+        register("count_greater_than_price",   CommandFactory { CountGreaterThanPriceServerCommand(collectionManager, it) })
+        register("print_unique_unit_of_measure", CommandFactory { PrintUniqueUnitOfMeasureServerCommand(collectionManager) })
+        register("print_field_descending_price", CommandFactory { PrintFieldDescendingPriceServerCommand(collectionManager) })
     }
 
     /**
-     * Registers a factory for [commandName], replacing any existing registration.
+     * Registers a [factory] for [commandName], replacing any existing registration.
      *
      * @param commandName the name clients use to identify the command
-     * @param factory a lambda that receives the serialized payload and returns a [ServerCommand]
+     * @param factory the factory that creates the [ServerCommand] for this name
      */
-    fun register(commandName: String, factory: (String) -> ServerCommand) {
+    fun register(commandName: String, factory: CommandFactory) {
         factories[commandName] = factory
     }
 
     /**
-     * Creates a [ServerCommand] for [commandName] by invoking the registered factory with [payload].
+     * Creates a [ServerCommand] for [commandName] by invoking the registered [CommandFactory]
+     * with [payload].
      *
      * @param commandName the command identifier from the incoming [connection.Request]
      * @param payload the serialized arguments string from the [connection.Request]
-     * @return the constructed [ServerCommand], ready to [ServerCommand.execute]
+     * @return the constructed [ServerCommand], ready to execute
      * @throws IllegalArgumentException if [commandName] has no registered factory
      */
-    fun create(commandName: String, payload: String): ServerCommand {
-        val factory = factories[commandName]
-            ?: throw IllegalArgumentException("Unknown command: $commandName")
-        return factory(payload)
-    }
+    fun create(commandName: String, payload: String): ServerCommand =
+        (factories[commandName] ?: throw IllegalArgumentException("Unknown command: $commandName"))
+            .create(payload)
 }

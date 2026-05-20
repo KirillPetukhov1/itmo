@@ -8,7 +8,7 @@ import objects.UnitOfMeasure
 
 /**
  * Builds a [Product] instance field by field.
- * The [id] and [creationDate] fields are not set here — they are assigned by the server.
+ * The [id] and [creationDate] fields are not set here -- they are assigned by the server.
  */
 class ProductBuilder : Builder<Product> {
 
