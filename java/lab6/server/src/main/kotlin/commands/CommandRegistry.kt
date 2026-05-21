@@ -19,19 +19,58 @@ class CommandRegistry(private val collectionManager: CollectionManager) {
     private val factories: MutableMap<String, CommandFactory> = mutableMapOf()
 
     init {
-        register("info",                       CommandFactory { InfoServerCommand(collectionManager) })
-        register("show",                       CommandFactory { ShowServerCommand(collectionManager) })
-        register("insert",                     CommandFactory { InsertServerCommand(collectionManager, it) })
-        register("update",                     CommandFactory { UpdateServerCommand(collectionManager, it) })
-        register("remove_key",                 CommandFactory { RemoveKeyServerCommand(collectionManager, it) })
-        register("clear",                      CommandFactory { ClearServerCommand(collectionManager) })
-        register("exit",                       CommandFactory { ExitServerCommand() })
-        register("remove_lower",               CommandFactory { RemoveLowerServerCommand(collectionManager, it) })
-        register("replace_if_greater",         CommandFactory { ReplaceIfGreaterServerCommand(collectionManager, it) })
-        register("remove_greater_key",         CommandFactory { RemoveGreaterKeyServerCommand(collectionManager, it) })
-        register("count_greater_than_price",   CommandFactory { CountGreaterThanPriceServerCommand(collectionManager, it) })
-        register("print_unique_unit_of_measure", CommandFactory { PrintUniqueUnitOfMeasureServerCommand(collectionManager) })
-        register("print_field_descending_price", CommandFactory { PrintFieldDescendingPriceServerCommand(collectionManager) })
+        register("info", object : CommandFactory {
+            override fun create(payload: String): ServerCommand =
+                InfoServerCommand(collectionManager)
+        })
+        register("show", object : CommandFactory {
+            override fun create(payload: String): ServerCommand =
+                ShowServerCommand(collectionManager)
+        })
+        register("insert", object : CommandFactory {
+            override fun create(payload: String): ServerCommand =
+                InsertServerCommand(collectionManager, payload)
+        })
+        register("update", object : CommandFactory {
+            override fun create(payload: String): ServerCommand =
+                UpdateServerCommand(collectionManager, payload)
+        })
+        register("remove_key", object : CommandFactory {
+            override fun create(payload: String): ServerCommand =
+                RemoveKeyServerCommand(collectionManager, payload)
+        })
+        register("clear", object : CommandFactory {
+            override fun create(payload: String): ServerCommand =
+                ClearServerCommand(collectionManager)
+        })
+        register("exit", object : CommandFactory {
+            override fun create(payload: String): ServerCommand =
+                ExitServerCommand()
+        })
+        register("remove_lower", object : CommandFactory {
+            override fun create(payload: String): ServerCommand =
+                RemoveLowerServerCommand(collectionManager, payload)
+        })
+        register("replace_if_greater", object : CommandFactory {
+            override fun create(payload: String): ServerCommand =
+                ReplaceIfGreaterServerCommand(collectionManager, payload)
+        })
+        register("remove_greater_key", object : CommandFactory {
+            override fun create(payload: String): ServerCommand =
+                RemoveGreaterKeyServerCommand(collectionManager, payload)
+        })
+        register("count_greater_than_price", object : CommandFactory {
+            override fun create(payload: String): ServerCommand =
+                CountGreaterThanPriceServerCommand(collectionManager, payload)
+        })
+        register("print_unique_unit_of_measure", object : CommandFactory {
+            override fun create(payload: String): ServerCommand =
+                PrintUniqueUnitOfMeasureServerCommand(collectionManager)
+        })
+        register("print_field_descending_price", object : CommandFactory {
+            override fun create(payload: String): ServerCommand =
+                PrintFieldDescendingPriceServerCommand(collectionManager)
+        })
     }
 
     /**
@@ -54,6 +93,7 @@ class CommandRegistry(private val collectionManager: CollectionManager) {
      * @throws IllegalArgumentException if [commandName] has no registered factory
      */
     fun create(commandName: String, payload: String): ServerCommand =
-        (factories[commandName] ?: throw IllegalArgumentException("Unknown command: $commandName"))
+        (factories[commandName]
+            ?: throw IllegalArgumentException("Unknown command: $commandName"))
             .create(payload)
 }
