@@ -12,7 +12,7 @@ import kotlinx.serialization.json.*
  */
 class RegisterCommand(private val readerWriter: AbstractReaderWriter) : AuthCommand(readerWriter) {
 
-    override val description = "Register a new user account"
+    override val description = "register : Register a new user account"
 
     /**
      * Builds the JSON payload carrying the new user's credentials for the server.

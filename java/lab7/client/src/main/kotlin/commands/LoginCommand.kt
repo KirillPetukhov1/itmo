@@ -16,7 +16,7 @@ import kotlinx.serialization.json.jsonPrimitive
  */
 class LoginCommand(private val readerWriter: AbstractReaderWriter) : AuthCommand(readerWriter) {
 
-    override val description = "Log in to the server"
+    override val description = "login : Log in to the server"
 
     /**
      * Returns an empty JSON payload because credentials are transmitted in the

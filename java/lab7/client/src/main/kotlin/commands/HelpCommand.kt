@@ -10,7 +10,7 @@ import abstractions.Command
  */
 class HelpCommand(private val commandRegistry: Map<String, Command>) : Command() {
 
-    override val description = "help : ??????? ??????? ?? ????????? ????????"
+    override val description = "help : вывести справку по доступным командам"
     override val isShouldBeSent = false
 
     override fun start(args: Array<String>) {
