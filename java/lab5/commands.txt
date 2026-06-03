@@ -45,3 +45,6 @@ scp -P 2222 -r "client\build\libs\client-1.0-SNAPSHOT-fat.jar" "server\build\lib
 
 
 execute_script scripts/test1.txt
+
+export DB_USER=s501755
+export DB_PASSWORD="ibUaQBH7w6OSVWWn"
