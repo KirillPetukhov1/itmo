@@ -1,0 +1,19 @@
+insert key1
+> Complete Product
+> 100
+> 20.0
+> 999
+> CP-001
+> 400
+> GRAMS
+> Charlie
+> 165
+> GREEN
+> VATICAN
+insert key2
+> Incomplete Product
+> 200
+show
+insert key3
+> Another Incomplete
+show

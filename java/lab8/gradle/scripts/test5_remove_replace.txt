@@ -1,0 +1,65 @@
+insert low
+> Cheap Item
+> 5
+> 1.0
+> 50
+> CI-001
+>
+> MILLILITERS
+> Greta
+> 155
+> BLUE
+>
+insert mid
+> Mid Item
+> 50
+> 10.0
+> 300
+> MI-001
+>
+> GRAMS
+> Hans
+> 180
+> BLACK
+> JAPAN
+insert high
+> Expensive Item
+> 200
+> 20.0
+> 1200
+> EI-001
+>
+> SQUARE_METERS
+> Irina
+> 168
+> GREEN
+>
+show
+remove_lower mid_ref
+> Reference Product
+> 100
+> 15.0
+> 400
+> REF-001
+>
+> GRAMS
+> Ref Person
+> 170
+> BLACK
+>
+show
+replace_if_greater mid
+> Upgraded Mid
+> 50
+> 10.0
+> 1500
+>
+>
+> GRAMS
+> Hans
+> 180
+> BLACK
+> JAPAN
+show
+remove_greater_key low
+show

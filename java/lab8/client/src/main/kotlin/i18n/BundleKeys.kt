@@ -1,0 +1,111 @@
+package i18n
+
+/**
+ * Compile-time constants for all resource bundle keys used throughout the GUI client.
+ *
+ * Every key maps to a translated string in one of the [ListResourceBundle] subclasses
+ * located in the same package. Keys are grouped by the UI area they belong to.
+ * Retrieve a translated value via [LocaleManager.get].
+ */
+object BundleKeys {
+
+    const val AUTH_WINDOW_TITLE = "AUTH_WINDOW_TITLE"
+    const val AUTH_LOGIN_LABEL = "AUTH_LOGIN_LABEL"
+    const val AUTH_PASSWORD_LABEL = "AUTH_PASSWORD_LABEL"
+    const val AUTH_LOGIN_BUTTON = "AUTH_LOGIN_BUTTON"
+    const val AUTH_REGISTER_BUTTON = "AUTH_REGISTER_BUTTON"
+    const val AUTH_PROMPT_LOGIN = "AUTH_PROMPT_LOGIN"
+    const val AUTH_PROMPT_REGISTER = "AUTH_PROMPT_REGISTER"
+    const val AUTH_ERROR_BLANK = "AUTH_ERROR_BLANK"
+    const val AUTH_ERROR_SERVER = "AUTH_ERROR_SERVER"
+
+    const val MAIN_WINDOW_TITLE = "MAIN_WINDOW_TITLE"
+    const val MAIN_CURRENT_USER = "MAIN_CURRENT_USER"
+    const val MAIN_LOGOUT = "MAIN_LOGOUT"
+    const val MAIN_LANGUAGE = "MAIN_LANGUAGE"
+
+    const val TAB_TABLE = "TAB_TABLE"
+    const val TAB_CANVAS = "TAB_CANVAS"
+
+    const val COL_KEY = "COL_KEY"
+    const val COL_ID = "COL_ID"
+    const val COL_NAME = "COL_NAME"
+    const val COL_COORD_X = "COL_COORD_X"
+    const val COL_COORD_Y = "COL_COORD_Y"
+    const val COL_CREATION_DATE = "COL_CREATION_DATE"
+    const val COL_PRICE = "COL_PRICE"
+    const val COL_PART_NUMBER = "COL_PART_NUMBER"
+    const val COL_MANUFACTURE_COST = "COL_MANUFACTURE_COST"
+    const val COL_UNIT_OF_MEASURE = "COL_UNIT_OF_MEASURE"
+    const val COL_OWNER_NAME = "COL_OWNER_NAME"
+    const val COL_OWNER_HEIGHT = "COL_OWNER_HEIGHT"
+    const val COL_OWNER_HAIR_COLOR = "COL_OWNER_HAIR_COLOR"
+    const val COL_OWNER_NATIONALITY = "COL_OWNER_NATIONALITY"
+    const val COL_CREATOR = "COL_CREATOR"
+
+    const val BTN_INSERT = "BTN_INSERT"
+    const val BTN_UPDATE = "BTN_UPDATE"
+    const val BTN_REMOVE_KEY = "BTN_REMOVE_KEY"
+    const val BTN_CLEAR = "BTN_CLEAR"
+    const val BTN_REMOVE_LOWER = "BTN_REMOVE_LOWER"
+    const val BTN_REPLACE_IF_GREATER = "BTN_REPLACE_IF_GREATER"
+    const val BTN_REMOVE_GREATER_KEY = "BTN_REMOVE_GREATER_KEY"
+    const val BTN_COUNT_GREATER_PRICE = "BTN_COUNT_GREATER_PRICE"
+    const val BTN_UNIQUE_UNIT = "BTN_UNIQUE_UNIT"
+    const val BTN_PRICES_DESC = "BTN_PRICES_DESC"
+    const val BTN_INFO = "BTN_INFO"
+    const val BTN_EXECUTE_SCRIPT = "BTN_EXECUTE_SCRIPT"
+    const val BTN_REFRESH = "BTN_REFRESH"
+    const val BTN_OK = "BTN_OK"
+    const val BTN_CANCEL = "BTN_CANCEL"
+    const val BTN_SAVE = "BTN_SAVE"
+    const val BTN_EDIT = "BTN_EDIT"
+    const val BTN_DELETE = "BTN_DELETE"
+
+    const val DLG_INSERT_TITLE = "DLG_INSERT_TITLE"
+    const val DLG_UPDATE_TITLE = "DLG_UPDATE_TITLE"
+    const val DLG_DELETE_TITLE = "DLG_DELETE_TITLE"
+    const val DLG_DELETE_CONFIRM = "DLG_DELETE_CONFIRM"
+    const val DLG_INFO_TITLE = "DLG_INFO_TITLE"
+    const val DLG_SCRIPT_TITLE = "DLG_SCRIPT_TITLE"
+    const val DLG_SCRIPT_FILE_LABEL = "DLG_SCRIPT_FILE_LABEL"
+    const val DLG_OBJECT_INFO_TITLE = "DLG_OBJECT_INFO_TITLE"
+
+    const val FORM_KEY = "FORM_KEY"
+    const val FORM_NAME = "FORM_NAME"
+    const val FORM_COORD_X = "FORM_COORD_X"
+    const val FORM_COORD_Y = "FORM_COORD_Y"
+    const val FORM_PRICE = "FORM_PRICE"
+    const val FORM_PART_NUMBER = "FORM_PART_NUMBER"
+    const val FORM_MANUFACTURE_COST = "FORM_MANUFACTURE_COST"
+    const val FORM_UNIT_OF_MEASURE = "FORM_UNIT_OF_MEASURE"
+    const val FORM_OWNER_NAME = "FORM_OWNER_NAME"
+    const val FORM_OWNER_HEIGHT = "FORM_OWNER_HEIGHT"
+    const val FORM_OWNER_HAIR_COLOR = "FORM_OWNER_HAIR_COLOR"
+    const val FORM_OWNER_NATIONALITY = "FORM_OWNER_NATIONALITY"
+    const val FORM_ID_LABEL = "FORM_ID_LABEL"
+
+    const val FILTER_PLACEHOLDER = "FILTER_PLACEHOLDER"
+
+    const val MSG_INSERT_OK = "MSG_INSERT_OK"
+    const val MSG_UPDATE_OK = "MSG_UPDATE_OK"
+    const val MSG_REMOVE_OK = "MSG_REMOVE_OK"
+    const val MSG_CLEAR_OK = "MSG_CLEAR_OK"
+    const val MSG_REGISTER_OK = "MSG_REGISTER_OK"
+    const val MSG_LOGIN_OK = "MSG_LOGIN_OK"
+    const val MSG_REMOVED_COUNT = "MSG_REMOVED_COUNT"
+    const val MSG_COUNT_RESULT = "MSG_COUNT_RESULT"
+    const val MSG_REPLACE_REPLACED = "MSG_REPLACE_REPLACED"
+    const val MSG_REPLACE_NOT_REPLACED = "MSG_REPLACE_NOT_REPLACED"
+
+    const val ERR_VALIDATION = "ERR_VALIDATION"
+    const val ERR_BLANK_FIELD = "ERR_BLANK_FIELD"
+    const val ERR_INVALID_NUMBER = "ERR_INVALID_NUMBER"
+    const val ERR_COORD_X_MAX = "ERR_COORD_X_MAX"
+    const val ERR_PRICE_POSITIVE = "ERR_PRICE_POSITIVE"
+    const val ERR_HEIGHT_POSITIVE = "ERR_HEIGHT_POSITIVE"
+    const val ERR_SERVER = "ERR_SERVER"
+    const val ERR_NETWORK = "ERR_NETWORK"
+    const val ERR_NO_SELECTION = "ERR_NO_SELECTION"
+    const val ERR_NOT_OWNER = "ERR_NOT_OWNER"
+}

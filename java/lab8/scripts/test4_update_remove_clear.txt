@@ -1,0 +1,43 @@
+insert alpha
+> Original Name
+> 10
+> 5.0
+> 500
+> OR-001
+> 200
+> SQUARE_METERS
+> Eve
+> 160
+> BROWN
+> SPAIN
+show
+update 1
+> Updated Name
+> 10
+> 5.0
+> 750
+> OR-001-U
+> 250
+> SQUARE_METERS
+> Eve Updated
+> 162
+> BROWN
+> SPAIN
+show
+remove_key alpha
+show
+insert beta
+> Beta Product
+> 50
+> 15.0
+> 400
+> BP-001
+> 100
+> GRAMS
+> Frank
+> 175
+> GREEN
+>
+clear
+show
+info
